@@ -1,0 +1,24 @@
+uuid: 90268f11-9054-4f6c-b544-f15dffd8e81f
+langcode: ko
+status: true
+dependencies:
+  config:
+    - node.type.page
+_core:
+  default_config_hash: fPUEnm4T5zfZRr3ttDUqq7yCDd2uW3clWD-pvos4tlQ
+id: node.page.promote
+field_name: promote
+entity_type: node
+bundle: page
+label: '첫 페이지에 홍보하기'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 켜기
+  off_label: 끄기
+field_type: boolean

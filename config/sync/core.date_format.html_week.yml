@@ -1,0 +1,10 @@
+uuid: 4a89b928-f661-4bd8-b030-461fa8deaa38
+langcode: ko
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: wKD4WsoV_wFgv2vgI4mcAAFSIzrye17ykzdwrnApkfY
+id: html_week
+label: 'HTML 주'
+locked: true
+pattern: Y-\WW

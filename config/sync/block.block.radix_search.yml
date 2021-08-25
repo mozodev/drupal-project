@@ -1,0 +1,23 @@
+uuid: 9d8ee20f-c328-4875-8eea-69a76e225e81
+langcode: ko
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - radix
+_core:
+  default_config_hash: Q-4EcGAsu26ICu4ejEz0uE1zv4akpiaOsizxgZfAmEw
+id: radix_search
+theme: radix
+region: navbar_branding
+weight: -1
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 찾기
+  provider: search
+  label_display: visible
+  page_id: node_search
+visibility: {  }

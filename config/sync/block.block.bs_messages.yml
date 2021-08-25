@@ -1,0 +1,22 @@
+uuid: e06ed5f4-084f-43b2-8bb7-a45411386c54
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: bs_messages
+theme: bs
+region: header
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

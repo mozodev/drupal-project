@@ -1,0 +1,12 @@
+uuid: a29a4279-dc9e-48b2-b044-383ed6b517cd
+langcode: ko
+status: false
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: ElrtInxGjZd7GaapJ5O9n-ugi2hG2IxFivtgn0tHOsk
+id: node.full
+label: '포스트 전체'
+targetEntityType: node
+cache: true

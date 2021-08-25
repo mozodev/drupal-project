@@ -1,0 +1,13 @@
+uuid: 009696e9-f97d-45a2-a693-082662a06977
+langcode: ko
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 2B9uF8NL5gutNKSdPRAhhAsDWFZZG1PJOBmx0aBGd_0
+id: node_publish_action
+label: '콘텐츠 공개하기'
+type: node
+plugin: 'entity:publish_action:node'
+configuration: {  }

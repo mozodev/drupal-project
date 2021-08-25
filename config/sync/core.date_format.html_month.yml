@@ -1,0 +1,10 @@
+uuid: 10ab54be-9f31-4955-9f1e-b80ba3572509
+langcode: ko
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Z7KuCUwM_WdTNvLcoltuX3_8d-s-8FZkTN6KgNwF0eM
+id: html_month
+label: 'HTML 월'
+locked: true
+pattern: Y-m

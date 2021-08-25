@@ -1,0 +1,10 @@
+uuid: 1f3206f3-7ff8-4cdb-a4d5-166324c32b90
+langcode: ko
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: zglzjmYxi0G0ag9MZ02y0LSJOdpWRwJxyP_OvFojFyo
+id: basic
+label: '기본 블록'
+revision: 0
+description: '기본 블록에는 제목과 본문이 들어있습니다.'

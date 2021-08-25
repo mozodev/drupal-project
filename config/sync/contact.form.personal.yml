@@ -1,0 +1,13 @@
+uuid: d3b85397-7c9e-430f-9d1d-66d135670ea0
+langcode: ko
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: jonvgt3CkUM2eMLTFwWfHileWWDC4YtXCuIlCahTk_I
+id: personal
+label: '개인 연락처 양식'
+recipients: {  }
+reply: ''
+weight: 0
+message: '메시지가 발송 되었습니다.'
+redirect: ''

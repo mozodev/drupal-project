@@ -1,0 +1,13 @@
+uuid: 6b00501c-1839-4246-b57f-5c76bedc82d5
+langcode: ko
+status: true
+dependencies:
+  module:
+    - comment
+_core:
+  default_config_hash: vpBH8OmL4sdesCdeZLsW8KOutB5gkbreWJbfjhfFKaQ
+id: comment_delete_action
+label: '댓글 삭제'
+type: comment
+plugin: 'entity:delete_action:comment'
+configuration: {  }
