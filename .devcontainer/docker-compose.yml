@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: "7.3"
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+        USER_UID: 1000
+        USER_GID: 1000
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    network_mode: service:db
+    user: vscode
+  db:
+    image: mariadb:10.3
+    restart: unless-stopped
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mariadb
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: mariadb
+
+volumes:
+  mariadb-data:
