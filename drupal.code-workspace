@@ -1,0 +1,108 @@
+{
+  "folders": [
+    {
+      "name": "custom-modules",
+      "path": "web/modules/custom/checkplus"
+    },
+    {
+      "name": "custom-theme",
+      "path": "web/themes/custom/bs"
+    },
+    {
+      "name": "project-root",
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "GitHub.vscode-pull-request-github",
+      "mrmlnc.vscode-duplicate",
+      "editorconfig.editorconfig",
+      "ikappas.composer",
+      "ikappas.phpcs",
+      "neilbrayfield.php-docblocker",
+      "dmitrydorofeev.empty-indent",
+      "bmewburn.vscode-intelephense-client",
+      "marcostazi.vs-code-drupal",
+      "bbeversdorf.drupal-check",
+      "mblode.twig-language-2",
+      "dssiqueira.drupal-8-snippets",
+      "tsega.drupal-8-javascript-snippets",
+      "tsega.drupal-8-twig-snippets",
+      "humao.rest-client"
+    ]
+  },
+  "settings": {
+    "breadcrumbs.enabled": true,
+    "css.validate": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.wordWrapColumn": 80,
+    "editor.wordWrap": "off",
+    "editor.detectIndentation": true,
+    "editor.rulers": [
+      80
+    ],
+    "files.associations": {
+      "*.inc": "php",
+      "*.module": "php",
+      "*.install": "php",
+      "*.theme": "php",
+      "*.profile": "php",
+      "*.tpl.php": "php",
+      "*.test": "php",
+      "*.php": "php",
+      "*.info": "ini",
+      "*.html": "twig",
+      "*.twig": "twig"
+    },
+    "emmet.includeLanguages": {
+      "twig": "html"
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true
+    },
+    "html.format.enable": true,
+    "html.format.wrapLineLength": 80,
+    "emptyIndent.removeIndent": true,
+    "emptyIndent.highlightIndent": false,
+    "emptyIndent.highlightColor": "rgba(246,36,89,0.6)",
+    "phpcs.enable": true,
+    "phpcs.executablePath": "{workspaceFolder}/vendor/bin/phpcs",
+    "phpcs.standard": "{workspaceFolder}/vendor/drupal/coder/coder_sniffer/Drupal",
+    "php.validate.enable": true,
+    "php.validate.executablePath": "/usr/bin/php",
+    "php.validate.run": "onType",
+    "php.suggest.basic": false,
+    "intelephense.environment.documentRoot": "web/core/index.php",
+    "intelephense.format.braces": "k&r",
+    "intelephense.diagnostics.undefinedTypes": false,
+    "intelephense.diagnostics.undefinedMethods": false,
+    "php-docblocker.gap": true,
+    "php-docblocker.useShortNames": true,
+    "composer.enabled": true,
+    "composer.executablePath": "/usr/local/bin/composer",
+    "remote.autoForwardPorts": false,
+    "remote.SSH.defaultForwardedPorts": [
+      {
+        "localPort": 8888,
+        "remotePort": 8888,
+        "name": "drush-rs"
+      },
+      {
+        "localPort": 3000,
+        "remotePort": 3000,
+        "name": "yarn-watch"
+      }
+    ],
+  }
+}

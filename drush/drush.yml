@@ -1,0 +1,44 @@
+# https://raw.githubusercontent.com/drush-ops/drush/10.x/examples/example.drush.yml
+drush:
+  paths:
+    config:
+      - ${env.HOME}/.drush/drush.yml
+
+options:
+  uri: 'http://localhost:8080'
+
+command:
+  sql:
+    dump:
+      options:
+        structure-tables-key: common
+        skip-tables-key: common
+    sync:
+      options:
+        create-db: true
+  core:
+    rsync:
+      options:
+        verbose: true
+
+sql:
+  tables:
+    common:
+      - user
+      - permissions
+      - role_permissions
+      - role
+  structure-tables:
+    common:
+      - 'cache*'
+      - history
+      - 'search_*'
+      - sessions
+      - watchdog
+      - webprofiler
+  skip-tables:
+    common:
+      - ''
+
+ssh:
+  pipefail: 'set -o pipefail; '

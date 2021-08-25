@@ -1,0 +1,27 @@
+---
+# cloud-config
+# multipass launch bionic -n aihub8 -c 2 -m 2G -d 30G --cloud-init drupal-mysql57.yml
+# but Here comes GitHub Codespaces!
+# https://github.com/features/codespaces
+ssh_import_id:
+  - gh: mozodev
+runcmd:
+  - |
+    cat << 'EOF' >> ~/.env
+    PHP_VERSION=7.3
+    PROJECT_CODE={{ v1.instance_id }}
+    PROJECT_ROOT=/var/www/aihub8
+    MYSQL_VERSION=5.7
+    EOF
+  # bootstrap
+  - curl -sSL https://git.io/J3yLS | bash
+  # project
+  - curl -sSL https://git.io/J8k2W | bash
+  # LANG:php
+  - curl -sSL https://git.io/J3MVp | bash
+  # LANG:nodejs
+  - curl -sSL https://git.io/J3MoH | bash
+  # DB:mysql
+  - curl -sSL https://git.io/JRvwE | bash
+  # APP:drupal
+  - curl -sSL https://git.io/J3MKt | bash
