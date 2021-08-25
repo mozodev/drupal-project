@@ -25,11 +25,13 @@
         "ext-xml": "*",
         "ext-zip": "*",
         "composer/installers": "^1.9",
+        "drupal/components": "^2.4",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-recommended": "^9.2",
         "drupal/gin": "^3.0@alpha",
         "drupal/gin_login": "^1.0@RC",
         "drupal/gin_toolbar": "^1.0@beta",
+        "drupal/radix": "^4.10",
         "drush/drush": "^10.6"
     },
     "conflict": {
