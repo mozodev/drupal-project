@@ -4,11 +4,12 @@
 
 // 2. Include any default variable overrides here
 // -----------------------------------------------------------------------------
-@import "base/variables";
+
 
 // 3. Include remainder of required Bootstrap stylesheets
 // -----------------------------------------------------------------------------
 @import "~bootstrap/scss/variables";
+@import "base/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
