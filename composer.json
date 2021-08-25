@@ -20,19 +20,22 @@
         "ext-gd": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "ext-mysql":"*",
         "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
         "ext-xml": "*",
         "ext-zip": "*",
         "composer/installers": "^1.9",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-recommended": "^9.2",
+        "drupal/gin": "^3.0@alpha",
+        "drupal/gin_login": "^1.0@RC",
+        "drupal/gin_toolbar": "^1.0@beta",
         "drush/drush": "^10.6"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
         "sort-packages": true
