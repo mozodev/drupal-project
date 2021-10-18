@@ -43,7 +43,7 @@
         "start": "drush rs 0.0.0.0:8888",
         "add-workspace": "php -r \"copy('config/site-dev/code-workspace', './project.code-workspace');\"",
         "add-env": "php -r \"copy('config/site-dev/env.example', './.env');\"",
-        "set-env": "bash -c 'set -a; source .env; set +a'",
+        "load-env": "bash -c 'set -a; source .env; set +a'",
         "scaffold-config": [
             "php -r \"chmod(getcwd() . '/web/sites/default', 0775); chmod(getcwd() . '/web/sites/default/settings.php', 0666);\"",
             "php -r \"file_put_contents(getcwd() . '/web/sites/default/settings.php', '\n', FILE_APPEND | LOCK_EX);\"",
@@ -55,7 +55,7 @@
         "post-create-project-cmd": ["@add-env"],
         "drupal-install": [
             "@set-env",
-            "drush -y si standard install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
+            "drush -y si base install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
             "@scaffold-config"
         ],
         "drupal-uninstall-sqlite": [

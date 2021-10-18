@@ -50,3 +50,4 @@
 /drive
 /*.code-workspace
 .env
+/.gitattributes

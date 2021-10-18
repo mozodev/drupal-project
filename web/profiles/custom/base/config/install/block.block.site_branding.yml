@@ -1,0 +1,22 @@
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+id: site_branding
+theme: bs
+region: navbar_branding
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: '사이트 브랜딩'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

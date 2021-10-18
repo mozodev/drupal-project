@@ -1,0 +1,19 @@
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+id: page_content
+theme: bs
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: '메인 페이지 콘텐츠'
+  provider: system
+  label_display: '0'
+visibility: {  }

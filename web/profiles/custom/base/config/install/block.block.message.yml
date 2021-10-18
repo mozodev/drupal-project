@@ -1,0 +1,19 @@
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+id: message
+theme: bs
+region: header
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 메시지
+  provider: system
+  label_display: '0'
+visibility: {  }

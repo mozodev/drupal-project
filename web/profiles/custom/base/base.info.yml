@@ -1,0 +1,51 @@
+name: Base
+type: profile
+description: 'base distribution for proejct based on standard profile.'
+core_version_requirement: '^8.8 || ^9'
+
+distribution:
+  name: Base
+  langcode: ko
+
+install:
+  - automated_cron
+  - big_pipe
+  - block
+  - breakpoint
+  - ckeditor
+  - config
+  - comment
+  - contextual
+  - datetime
+  - dynamic_page_cache
+  - editor
+  - field_ui
+  - file
+  - history
+  - image
+  - media
+  - media_library
+  - menu_ui
+  - menu_link_content
+  - node
+  - options
+  - page_cache
+  - path
+  - rdf
+  - search
+  - settings_tray
+  - shortcut
+  - taxonomy
+  - toolbar
+  - views
+  - views_ui
+
+dependencies:
+  - components
+  - gin_login
+  - gin_toolbar
+  - devel
+
+themes:
+  - radix
+  - gin
