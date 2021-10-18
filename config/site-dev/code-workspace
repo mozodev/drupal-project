@@ -2,11 +2,11 @@
   "folders": [
     {
       "name": "custom-modules",
-      "path": "web/modules/custom/checkplus"
+      "path": "web/modules/custom/"
     },
     {
-      "name": "custom-theme",
-      "path": "web/themes/custom/bs"
+      "name": "custom-themes",
+      "path": "web/themes/custom/"
     },
     {
       "name": "project-root",
@@ -103,6 +103,6 @@
         "remotePort": 3000,
         "name": "yarn-watch"
       }
-    ],
+    ]
   }
 }

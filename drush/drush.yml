@@ -1,11 +1,4 @@
 # https://raw.githubusercontent.com/drush-ops/drush/10.x/examples/example.drush.yml
-drush:
-  paths:
-    config:
-      - ${env.HOME}/.drush/drush.yml
-
-options:
-  uri: 'http://localhost:8080'
 
 command:
   sql:
@@ -38,7 +31,8 @@ sql:
       - webprofiler
   skip-tables:
     common:
-      - ''
+      - 'migration_*'
 
 ssh:
+  options: '-o PasswordAuthentication=no'
   pipefail: 'set -o pipefail; '
