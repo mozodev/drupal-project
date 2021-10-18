@@ -1,0 +1,5 @@
+admin: gin
+default: bs
+langcode: ko
+_core:
+  default_config_hash: U9Tgg076EkVXsOrVPbFu5fIeZy79PsIzXd0MrcOj6Vs

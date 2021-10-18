@@ -1,0 +1,20 @@
+uuid: 3574280b-f45c-4ed2-8be7-335c9e5ee47e
+langcode: ko
+status: false
+dependencies:
+  theme:
+    - bs
+_core:
+  default_config_hash: 1Nc2EJ7KEdq1KelImcQ3X0rroOUPXTVxKXAEVjDPewg
+id: page_title
+theme: bs
+region: navbar_branding
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: '페이지 제목'
+  provider: core
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,13 @@
+uuid: f3262c1f-50e4-4d42-a225-ee018d935ab0
+langcode: ko
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: JBptjnfuOMtsdKygklXxoOgeOCTMtQxlkymjnnj-cC0
+id: node_unpromote_action
+label: '첫 페이지에서 콘텐츠 내리기'
+type: node
+plugin: node_unpromote_action
+configuration: {  }

@@ -1,0 +1,7 @@
+logo:
+  use_default: true
+brand_image:
+  use_default: true
+langcode: ko
+_core:
+  default_config_hash: _k00DbO4w8WbcWplImuxXzj0uNnw5H3ynW2jFynqLx0

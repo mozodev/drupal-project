@@ -1,0 +1,22 @@
+uuid: da0a3b65-8338-42a5-8523-27515b5cc7a4
+langcode: ko
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+_core:
+  default_config_hash: ICO5fq-yAk8JgAOqMEMeDFPZtwIO05L8i8wCk-jDZwU
+id: page_content
+theme: bs
+region: navbar_branding
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: '메인 페이지 콘텐츠'
+  provider: system
+  label_display: '0'
+visibility: {  }

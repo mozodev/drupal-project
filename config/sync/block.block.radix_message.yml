@@ -1,0 +1,22 @@
+uuid: 7b7c32e2-936a-480b-8da8-2505cd1d7523
+langcode: ko
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - radix
+_core:
+  default_config_hash: W4i5uo59cHjRtoP3lGkYk6ojT5PFJO9GO8Q1NgH1Q94
+id: radix_message
+theme: radix
+region: navbar_branding
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 메시지
+  provider: system
+  label_display: '0'
+visibility: {  }

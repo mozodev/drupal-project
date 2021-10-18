@@ -1,0 +1,22 @@
+uuid: f5e583d8-bce5-4a6f-8678-0869975b7a23
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - claro
+_core:
+  default_config_hash: b6mUaCq5YPapRUABXRHfNTT6fxWIj5lgf0Mg4HaRJ_I
+id: claro_breadcrumbs
+theme: claro
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: '이동 경로'
+  provider: system
+  label_display: '0'
+visibility: {  }

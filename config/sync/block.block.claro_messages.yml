@@ -1,0 +1,22 @@
+uuid: 97afcd26-5142-4831-8f34-d9ec2a005922
+langcode: ko
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - claro
+_core:
+  default_config_hash: iIy-YIc9d9s1isAtTIKWDBKd6kd2r6LxoYz_-hkLJco
+id: claro_messages
+theme: claro
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: '상태 메시지'
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: fe08e27e-19f9-43ec-b07f-c1a86d0747c8
+langcode: ko
+status: false
+dependencies:
+  theme:
+    - bs
+_core:
+  default_config_hash: WiMWTisIuMdmvG3__t5_QKnjw7Abx84hCnWDNKe-MNA
+id: tab
+theme: bs
+region: navbar_branding
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 탭
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

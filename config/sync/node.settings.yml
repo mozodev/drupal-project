@@ -1,0 +1,4 @@
+use_admin_theme: true
+langcode: ko
+_core:
+  default_config_hash: 5Y1-8Y6vhGXaiezSkU6ZfLt9pdLn3tkWf2BUqAVd7-Y

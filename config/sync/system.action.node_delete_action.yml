@@ -1,0 +1,13 @@
+uuid: 11903743-64e2-4f03-ab2c-5c0993d0b356
+langcode: ko
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: t43OqwzP3CTbcAagSsWKNy6KwMm_zShXo3c4-So6rQg
+id: node_delete_action
+label: '콘텐츠 삭제하기'
+type: node
+plugin: 'entity:delete_action:node'
+configuration: {  }

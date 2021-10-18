@@ -1,0 +1,13 @@
+uuid: cd55220a-a8a0-468b-9a75-a78f77af131d
+langcode: ko
+status: true
+dependencies:
+  module:
+    - comment
+_core:
+  default_config_hash: tWOIjSMobEWOFZddMkNqb9JySbOVwE1diC6NRqcfLTk
+id: comment_unpublish_action
+label: '댓글 비공개'
+type: comment
+plugin: 'entity:unpublish_action:comment'
+configuration: {  }

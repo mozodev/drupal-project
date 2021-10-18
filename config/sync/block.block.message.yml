@@ -1,0 +1,22 @@
+uuid: a79d67a5-1196-4a5d-851d-8e6ee029310b
+langcode: ko
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - bs
+_core:
+  default_config_hash: W4i5uo59cHjRtoP3lGkYk6ojT5PFJO9GO8Q1NgH1Q94
+id: message
+theme: bs
+region: navbar_branding
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 메시지
+  provider: system
+  label_display: '0'
+visibility: {  }

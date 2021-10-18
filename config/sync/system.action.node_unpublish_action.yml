@@ -1,0 +1,13 @@
+uuid: ae2da029-25c5-4da9-b079-10ee8fdb9941
+langcode: ko
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: C7X8h9FWlwkQ9y5mnU2JzgaZICAdc6HFbPVbhvjlAYE
+id: node_unpublish_action
+label: '콘텐츠 숨기기'
+type: node
+plugin: 'entity:unpublish_action:node'
+configuration: {  }

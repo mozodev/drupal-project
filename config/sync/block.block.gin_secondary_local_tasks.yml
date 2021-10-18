@@ -1,0 +1,22 @@
+uuid: ee55f269-fca8-4fb9-9a89-79e498d8b2c3
+langcode: ko
+status: true
+dependencies:
+  theme:
+    - gin
+_core:
+  default_config_hash: BCWhood0xXFQYqxFgL1spXdb9KeIuXH1YvTdjIEedDg
+id: gin_secondary_local_tasks
+theme: gin
+region: pre_content
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 보조탭
+  provider: core
+  label_display: '0'
+  primary: false
+  secondary: true
+visibility: {  }
