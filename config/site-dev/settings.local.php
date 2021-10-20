@@ -1,41 +1,49 @@
 <?php
 
+// phpcs:ignoreFile
+
 /**
- * 시스템 관련 필수 설정
+ * @file
+ * Drupal site-specific cstom configuration file.
  */
-$keys = ['hash_salt', 'config_sync_directory', 'trusted_host_patterns'];
-foreach ($keys as $key) {
-  if (!empty(getenv(strtoupper($key), 0))) {
+
+if (!defined('DRUPAL_ENV')) {
+  define('DRUPAL_ENV', getenv('DRUPAL_ENV', 'dev'));
+}
+
+/**
+ * 시스템 $settings.
+ */
+$settings_keys = ['trusted_host_patterns'];
+foreach ($settings_keys as $key) {
+  if (!empty(getenv('DRUPAL_' . strtoupper($key)))) {
     $settings[$key] = ($key == 'trusted_host_patterns') ? 
-      explode('|', $settings['trusted_host_patterns']) : getenv(strtoupper($key));
+      explode('|', $settings['trusted_host_patterns']) : getenv('DRUPAL_' . strtoupper($key));
   }
 }
 
 /**
- * DB 설정
+ * DB 설정 $databases.
  */
-$databases_keys = [ 'database', 'host', 'port', 'driver', 'username', 'password', 'prefix', 'collation' ];
+unset($databases['default']['default']['namespace']);
+$databases_keys = ['database', 'host', 'port', 'driver', 'username', 'password', 'prefix', 'collation'];
 foreach ($databases_keys as $key) {
-  if (!empty(getenv('DB_' . strtoupper($key), 0))) {
+  if (!empty(getenv('DRUPAL_DB_' . strtoupper($key), 0))) {
     $databases['default']['default'][$key] = $value;
   }
 }
-unset($databases['default']['default']['namespace']);
 
 /**
- * 디버그용 설정
+ * 개발 설정.
  */
-$settings['DEBUG'] = getenv('DEBUG', 0);
-if (!$settings['DEBUG']) {
+if (DRUPAL_ENV == 'dev') {
   $settings['container_yamls'][] = '../config/site-dev/theme-dev.services.yml';
   $config['system.logging']['error_level'] = 'verbose';
   $settings['skip_permissions_hardening'] = TRUE;
   $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
-  if (class_exists('Kint')) {
-    \Kint::$max_depth = 4;
-  }
+  if (class_exists('Kint')) \Kint::$max_depth = 4;
   /**
-   * Cache 관련 설정
+   * Cache 관련 설정.
    */
   $config['system.performance']['css']['preprocess'] = FALSE;
   $config['system.performance']['js']['preprocess'] = FALSE;

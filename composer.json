@@ -1,13 +1,8 @@
 {
     "name": "mozodev/drupal-project",
-    "description": "Project template for Drupal 9 projects with a relocated document root",
+    "description": "Another project template for Drupal 9 projects with a relocated document root",
     "type": "project",
-    "license": "GPL-2.0-or-later",
-    "homepage": "https://www.drupal.org/project/drupal",
-    "support": {
-        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
-        "chat": "https://www.drupal.org/node/314178"
-    },
+    "license": "MIT",
     "repositories": [
         {
             "type": "composer",
@@ -39,70 +34,46 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "autoload": {
+        "classmap": ["scripts/composer/ScriptHandler.php"]
+    },
     "scripts": {
-        "start": "drush rs 0.0.0.0:8888",
-        "add-workspace": "php -r \"copy('config/site-dev/code-workspace', './project.code-workspace');\"",
-        "add-env": "php -r \"copy('config/site-dev/env.example', './.env');\"",
-        "load-env": "bash -c 'set -a; source .env; set +a'",
-        "scaffold-config": [
-            "php -r \"chmod(getcwd() . '/web/sites/default', 0775); chmod(getcwd() . '/web/sites/default/settings.php', 0666);\"",
-            "php -r \"file_put_contents(getcwd() . '/web/sites/default/settings.php', '\n', FILE_APPEND | LOCK_EX);\"",
-            "php -r \"file_put_contents(getcwd() . '/web/sites/default/settings.php', 'include \\'settings.local.php\\';', FILE_APPEND | LOCK_EX);\"",
-            "php -r \"file_put_contents(getcwd() . '/web/sites/default/settings.php', '\n', FILE_APPEND | LOCK_EX);\"",
-            "php -r \"symlink(getcwd() . '/config/site-dev/settings.local.php', getcwd() . '/web/sites/default/settings.local.php');\"",
-            "php -r \"chmod(getcwd() . '/web/sites/default', 0755); chmod(getcwd() . '/web/sites/default/settings.php', 0444);\""
-        ],
-        "post-create-project-cmd": ["@add-env"],
-        "drupal-install": [
-            "@set-env",
+        "workspace": ["DrupalProject\\composer\\ScriptHandler::addWorkspace"],
+        "env": "php -r \"copy('config/site-dev/env.example', './.env');\"",
+        "add-settings-local": ["DrupalProject\\composer\\ScriptHandler::addSettingsLocal"],
+        "site-install": [
             "drush -y si base install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
-            "@scaffold-config"
+            "@add-settings-local"
         ],
-        "drupal-uninstall-sqlite": [
-            "chmod +w web/sites/default && rm -rf drive/db.* web/sites/default/files/config_* web/sites/default/settings*"
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "drush rs 0.0.0.0:8888"
         ],
-        "drupal-uninstall": [
-            "drush sql:drop -y && chmod +w web/sites/default && rm -rf drive/db.* web/sites/default/files/config_* web/sites/default/settings* "
+        "site-uninstall": [
+            "drush sql:drop -y",
+            "chmod +w web/sites/default",
+            "rm -rf web/sites/default/files/config_* web/sites/default/settings*"
         ]
     },
     "config": {
+        "discard-changes": true,
         "sort-packages": true,
         "process-timeout": 0
     },
     "extra": {
         "drupal-scaffold": {
-            "locations": {
-                "web-root": "web/"
-            }
+            "locations": {"web-root": "web/"}
         },
         "installer-paths": {
-            "web/core": [
-                "type:drupal-core"
-            ],
-            "web/libraries/{$name}": [
-                "type:drupal-library"
-            ],
-            "web/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "web/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "web/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "drush/Commands/contrib/{$name}": [
-                "type:drupal-drush"
-            ],
-            "web/modules/custom/{$name}": [
-                "type:drupal-custom-module"
-            ],
-            "web/profiles/custom/{$name}": [
-                "type:drupal-custom-profile"
-            ],
-            "web/themes/custom/{$name}": [
-                "type:drupal-custom-theme"
-            ]
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
+            "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
         }
     },
     "require-dev": {
