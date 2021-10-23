@@ -1,21 +1,17 @@
 <?php
 
-/**
- * @file
- * Contains \DrupalProject\composer\ScriptHandler.
- * From https://github.com/drupal-composer/drupal-project/blob/9.x/scripts/composer/ScriptHandler.php
- */
-
 namespace DrupalProject\composer;
 
 use Composer\Script\Event;
 use Composer\Semver\Comparator;
-use Dotenv\Dotenv;
-use Drupal\Core\Site\Settings;
 use DrupalFinder\DrupalFinder;
 use Symfony\Component\Filesystem\Filesystem;
-use Webmozart\PathUtil\Path;
 
+/**
+ * Composer script handler.
+ *
+ * @see https://github.com/drupal-composer/drupal-project/blob/9.x/scripts/composer/ScriptHandler.php
+ */
 class ScriptHandler {
 
   /**
@@ -71,10 +67,10 @@ class ScriptHandler {
     $destination = $composerRoot . '/' . $projectCode . '.code-workspace';
     if (!$fs->exists($destination)) {
       $fs->copy($source, $destination);
-      $io->write("code $projectCode.code-workspace");   
+      $io->write("code $projectCode.code-workspace");
     }
     else {
-      $io->write("Worksapce file exists.");      
+      $io->write("Worksapce file exists.");
     }
   }
 

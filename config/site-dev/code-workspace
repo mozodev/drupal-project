@@ -18,7 +18,6 @@
       "GitHub.vscode-pull-request-github",
       "mrmlnc.vscode-duplicate",
       "editorconfig.editorconfig",
-      "ikappas.composer",
       "ikappas.phpcs",
       "neilbrayfield.php-docblocker",
       "dmitrydorofeev.empty-indent",
@@ -29,7 +28,8 @@
       "dssiqueira.drupal-8-snippets",
       "tsega.drupal-8-javascript-snippets",
       "tsega.drupal-8-twig-snippets",
-      "humao.rest-client"
+      "humao.rest-client",
+      "wmaurer.change-case"
     ]
   },
   "settings": {

@@ -10,6 +10,9 @@
 if (!defined('DRUPAL_ENV')) {
   define('DRUPAL_ENV', getenv('DRUPAL_ENV', 'dev'));
 }
+if (!defined('PROJECT_ROOT')) {
+  define('PROJECT_ROOT', DRUPAL_ROOT . '/..');
+}
 
 /**
  * 시스템 $settings.
@@ -17,7 +20,7 @@ if (!defined('DRUPAL_ENV')) {
 $settings_keys = ['trusted_host_patterns'];
 foreach ($settings_keys as $key) {
   if (!empty(getenv('DRUPAL_' . strtoupper($key)))) {
-    $settings[$key] = ($key == 'trusted_host_patterns') ? 
+    $settings[$key] = ($key == 'trusted_host_patterns') ?
       explode('|', $settings['trusted_host_patterns']) : getenv('DRUPAL_' . strtoupper($key));
   }
 }
@@ -51,3 +54,11 @@ if (DRUPAL_ENV == 'dev') {
   $settings['cache']['bins']['page'] = 'cache.backend.null';
   $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
 }
+
+/**
+ * Markdown pages
+ */
+$settings['makrdown_pages_pathes'] = [
+  'about',
+  'test'
+];
