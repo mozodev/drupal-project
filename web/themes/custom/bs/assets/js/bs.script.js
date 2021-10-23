@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "popperGenerator": () => (/* binding */ popperGenerator),
 /* harmony export */   "createPopper": () => (/* binding */ createPopper),
-/* harmony export */   "detectOverflow": () => (/* reexport safe */ _utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_13__.default)
+/* harmony export */   "detectOverflow": () => (/* reexport safe */ _utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_13__["default"])
 /* harmony export */ });
 /* harmony import */ var _dom_utils_getCompositeRect_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dom-utils/getCompositeRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getCompositeRect.js");
 /* harmony import */ var _dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dom-utils/getLayoutRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getLayoutRect.js");
@@ -91,16 +91,17 @@ function popperGenerator(generatorOptions) {
     var isDestroyed = false;
     var instance = {
       state: state,
-      setOptions: function setOptions(options) {
+      setOptions: function setOptions(setOptionsAction) {
+        var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
         cleanupModifierEffects();
         state.options = Object.assign({}, defaultOptions, state.options, options);
         state.scrollParents = {
-          reference: (0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isElement)(reference) ? (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__.default)(reference) : reference.contextElement ? (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__.default)(reference.contextElement) : [],
-          popper: (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__.default)(popper)
+          reference: (0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isElement)(reference) ? (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__["default"])(reference) : reference.contextElement ? (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__["default"])(reference.contextElement) : [],
+          popper: (0,_dom_utils_listScrollParents_js__WEBPACK_IMPORTED_MODULE_1__["default"])(popper)
         }; // Orders the modifiers based on their dependencies and `phase`
         // properties
 
-        var orderedModifiers = (0,_utils_orderModifiers_js__WEBPACK_IMPORTED_MODULE_2__.default)((0,_utils_mergeByName_js__WEBPACK_IMPORTED_MODULE_3__.default)([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
+        var orderedModifiers = (0,_utils_orderModifiers_js__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_utils_mergeByName_js__WEBPACK_IMPORTED_MODULE_3__["default"])([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
 
         state.orderedModifiers = orderedModifiers.filter(function (m) {
           return m.enabled;
@@ -108,13 +109,13 @@ function popperGenerator(generatorOptions) {
         // if one of the modifiers is invalid for any reason
 
         if (true) {
-          var modifiers = (0,_utils_uniqueBy_js__WEBPACK_IMPORTED_MODULE_4__.default)([].concat(orderedModifiers, state.options.modifiers), function (_ref) {
+          var modifiers = (0,_utils_uniqueBy_js__WEBPACK_IMPORTED_MODULE_4__["default"])([].concat(orderedModifiers, state.options.modifiers), function (_ref) {
             var name = _ref.name;
             return name;
           });
-          (0,_utils_validateModifiers_js__WEBPACK_IMPORTED_MODULE_5__.default)(modifiers);
+          (0,_utils_validateModifiers_js__WEBPACK_IMPORTED_MODULE_5__["default"])(modifiers);
 
-          if ((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_6__.default)(state.options.placement) === _enums_js__WEBPACK_IMPORTED_MODULE_7__.auto) {
+          if ((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_6__["default"])(state.options.placement) === _enums_js__WEBPACK_IMPORTED_MODULE_7__.auto) {
             var flipModifier = state.orderedModifiers.find(function (_ref2) {
               var name = _ref2.name;
               return name === 'flip';
@@ -125,7 +126,7 @@ function popperGenerator(generatorOptions) {
             }
           }
 
-          var _getComputedStyle = (0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_8__.default)(popper),
+          var _getComputedStyle = (0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_8__["default"])(popper),
               marginTop = _getComputedStyle.marginTop,
               marginRight = _getComputedStyle.marginRight,
               marginBottom = _getComputedStyle.marginBottom,
@@ -168,8 +169,8 @@ function popperGenerator(generatorOptions) {
 
 
         state.rects = {
-          reference: (0,_dom_utils_getCompositeRect_js__WEBPACK_IMPORTED_MODULE_9__.default)(reference, (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_10__.default)(popper), state.options.strategy === 'fixed'),
-          popper: (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_11__.default)(popper)
+          reference: (0,_dom_utils_getCompositeRect_js__WEBPACK_IMPORTED_MODULE_9__["default"])(reference, (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_10__["default"])(popper), state.options.strategy === 'fixed'),
+          popper: (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_11__["default"])(popper)
         }; // Modifiers have the ability to reset the current update cycle. The
         // most common use case for this is the `flip` modifier changing the
         // placement, which then needs to re-run all the modifiers, because the
@@ -221,7 +222,7 @@ function popperGenerator(generatorOptions) {
       },
       // Async and optimistically optimized update – it will not be executed if
       // not necessary (debounced to run at most once-per-tick)
-      update: (0,_utils_debounce_js__WEBPACK_IMPORTED_MODULE_12__.default)(function () {
+      update: (0,_utils_debounce_js__WEBPACK_IMPORTED_MODULE_12__["default"])(function () {
         return new Promise(function (resolve) {
           instance.forceUpdate();
           resolve(state);
@@ -338,17 +339,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getBoundingClientRect)
 /* harmony export */ });
-function getBoundingClientRect(element) {
+// import { isHTMLElement } from './instanceOf';
+function getBoundingClientRect(element, // eslint-disable-next-line unused-imports/no-unused-vars
+includeScale) {
+  if (includeScale === void 0) {
+    includeScale = false;
+  }
+
   var rect = element.getBoundingClientRect();
+  var scaleX = 1;
+  var scaleY = 1; // FIXME:
+  // `offsetWidth` returns an integer while `getBoundingClientRect`
+  // returns a float. This results in `scaleX` or `scaleY` being
+  // non-1 when it should be for elements that aren't a full pixel in
+  // width or height.
+  // if (isHTMLElement(element) && includeScale) {
+  //   const offsetHeight = element.offsetHeight;
+  //   const offsetWidth = element.offsetWidth;
+  //   // Do not attempt to divide by 0, otherwise we get `Infinity` as scale
+  //   // Fallback to 1 in case both values are `0`
+  //   if (offsetWidth > 0) {
+  //     scaleX = rect.width / offsetWidth || 1;
+  //   }
+  //   if (offsetHeight > 0) {
+  //     scaleY = rect.height / offsetHeight || 1;
+  //   }
+  // }
+
   return {
-    width: rect.width,
-    height: rect.height,
-    top: rect.top,
-    right: rect.right,
-    bottom: rect.bottom,
-    left: rect.left,
-    x: rect.left,
-    y: rect.top
+    width: rect.width / scaleX,
+    height: rect.height / scaleY,
+    top: rect.top / scaleY,
+    right: rect.right / scaleX,
+    bottom: rect.bottom / scaleY,
+    left: rect.left / scaleX,
+    x: rect.left / scaleX,
+    y: rect.top / scaleY
   };
 }
 
@@ -395,7 +421,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function getInnerBoundingClientRect(element) {
-  var rect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__.default)(element);
+  var rect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element);
   rect.top = rect.top + element.clientTop;
   rect.left = rect.left + element.clientLeft;
   rect.bottom = rect.top + element.clientHeight;
@@ -408,16 +434,16 @@ function getInnerBoundingClientRect(element) {
 }
 
 function getClientRectFromMixedType(element, clippingParent) {
-  return clippingParent === _enums_js__WEBPACK_IMPORTED_MODULE_1__.viewport ? (0,_utils_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_2__.default)((0,_getViewportRect_js__WEBPACK_IMPORTED_MODULE_3__.default)(element)) : (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isHTMLElement)(clippingParent) ? getInnerBoundingClientRect(clippingParent) : (0,_utils_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_2__.default)((0,_getDocumentRect_js__WEBPACK_IMPORTED_MODULE_5__.default)((0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_6__.default)(element)));
+  return clippingParent === _enums_js__WEBPACK_IMPORTED_MODULE_1__.viewport ? (0,_utils_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_getViewportRect_js__WEBPACK_IMPORTED_MODULE_3__["default"])(element)) : (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isHTMLElement)(clippingParent) ? getInnerBoundingClientRect(clippingParent) : (0,_utils_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_getDocumentRect_js__WEBPACK_IMPORTED_MODULE_5__["default"])((0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_6__["default"])(element)));
 } // A "clipping parent" is an overflowable container with the characteristic of
 // clipping (or hiding) overflowing elements with a position different from
 // `initial`
 
 
 function getClippingParents(element) {
-  var clippingParents = (0,_listScrollParents_js__WEBPACK_IMPORTED_MODULE_7__.default)((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_8__.default)(element));
-  var canEscapeClipping = ['absolute', 'fixed'].indexOf((0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_9__.default)(element).position) >= 0;
-  var clipperElement = canEscapeClipping && (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isHTMLElement)(element) ? (0,_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_10__.default)(element) : element;
+  var clippingParents = (0,_listScrollParents_js__WEBPACK_IMPORTED_MODULE_7__["default"])((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_8__["default"])(element));
+  var canEscapeClipping = ['absolute', 'fixed'].indexOf((0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_9__["default"])(element).position) >= 0;
+  var clipperElement = canEscapeClipping && (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isHTMLElement)(element) ? (0,_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_10__["default"])(element) : element;
 
   if (!(0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isElement)(clipperElement)) {
     return [];
@@ -425,7 +451,7 @@ function getClippingParents(element) {
 
 
   return clippingParents.filter(function (clippingParent) {
-    return (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isElement)(clippingParent) && (0,_contains_js__WEBPACK_IMPORTED_MODULE_11__.default)(clippingParent, clipperElement) && (0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_12__.default)(clippingParent) !== 'body';
+    return (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isElement)(clippingParent) && (0,_contains_js__WEBPACK_IMPORTED_MODULE_11__["default"])(clippingParent, clipperElement) && (0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_12__["default"])(clippingParent) !== 'body';
   });
 } // Gets the maximum area that the element is visible in due to any number of
 // clipping parents
@@ -463,12 +489,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getCompositeRect)
 /* harmony export */ });
-/* harmony import */ var _getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getBoundingClientRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js");
+/* harmony import */ var _getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getBoundingClientRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js");
 /* harmony import */ var _getNodeScroll_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getNodeScroll.js */ "./node_modules/@popperjs/core/lib/dom-utils/getNodeScroll.js");
 /* harmony import */ var _getNodeName_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getNodeName.js */ "./node_modules/@popperjs/core/lib/dom-utils/getNodeName.js");
-/* harmony import */ var _instanceOf_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./instanceOf.js */ "./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js");
+/* harmony import */ var _instanceOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instanceOf.js */ "./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js");
 /* harmony import */ var _getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getWindowScrollBarX.js */ "./node_modules/@popperjs/core/lib/dom-utils/getWindowScrollBarX.js");
-/* harmony import */ var _getDocumentElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDocumentElement.js */ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js");
+/* harmony import */ var _getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDocumentElement.js */ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js");
 /* harmony import */ var _isScrollParent_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isScrollParent.js */ "./node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js");
 
 
@@ -476,17 +502,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // Returns the composite rect of an element relative to its offsetParent.
+
+
+function isElementScaled(element) {
+  var rect = element.getBoundingClientRect();
+  var scaleX = rect.width / element.offsetWidth || 1;
+  var scaleY = rect.height / element.offsetHeight || 1;
+  return scaleX !== 1 || scaleY !== 1;
+} // Returns the composite rect of an element relative to its offsetParent.
 // Composite means it takes into account transforms as well as layout.
+
 
 function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
   if (isFixed === void 0) {
     isFixed = false;
   }
 
-  var documentElement = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(offsetParent);
-  var rect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_1__.default)(elementOrVirtualElement);
-  var isOffsetParentAnElement = (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(offsetParent);
+  var isOffsetParentAnElement = (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent);
+  var offsetParentIsScaled = (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent) && isElementScaled(offsetParent);
+  var documentElement = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__["default"])(offsetParent);
+  var rect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_2__["default"])(elementOrVirtualElement, offsetParentIsScaled);
   var scroll = {
     scrollLeft: 0,
     scrollTop: 0
@@ -497,17 +532,17 @@ function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
   };
 
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-    if ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__.default)(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-    (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_4__.default)(documentElement)) {
-      scroll = (0,_getNodeScroll_js__WEBPACK_IMPORTED_MODULE_5__.default)(offsetParent);
+    if ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__["default"])(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
+    (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_4__["default"])(documentElement)) {
+      scroll = (0,_getNodeScroll_js__WEBPACK_IMPORTED_MODULE_5__["default"])(offsetParent);
     }
 
-    if ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(offsetParent)) {
-      offsets = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_1__.default)(offsetParent);
+    if ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent)) {
+      offsets = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_2__["default"])(offsetParent, true);
       offsets.x += offsetParent.clientLeft;
       offsets.y += offsetParent.clientTop;
     } else if (documentElement) {
-      offsets.x = (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_6__.default)(documentElement);
+      offsets.x = (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_6__["default"])(documentElement);
     }
   }
 
@@ -535,7 +570,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getWindow_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getWindow.js */ "./node_modules/@popperjs/core/lib/dom-utils/getWindow.js");
 
 function getComputedStyle(element) {
-  return (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(element).getComputedStyle(element);
+  return (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element).getComputedStyle(element);
 }
 
 /***/ }),
@@ -587,15 +622,15 @@ __webpack_require__.r(__webpack_exports__);
 function getDocumentRect(element) {
   var _element$ownerDocumen;
 
-  var html = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(element);
-  var winScroll = (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_1__.default)(element);
+  var html = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element);
+  var winScroll = (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element);
   var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
   var width = (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_2__.max)(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
   var height = (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_2__.max)(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
-  var x = -winScroll.scrollLeft + (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_3__.default)(element);
+  var x = -winScroll.scrollLeft + (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_3__["default"])(element);
   var y = -winScroll.scrollTop;
 
-  if ((0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_4__.default)(body || html).direction === 'rtl') {
+  if ((0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_4__["default"])(body || html).direction === 'rtl') {
     x += (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_2__.max)(html.clientWidth, body ? body.clientWidth : 0) - width;
   }
 
@@ -645,7 +680,7 @@ __webpack_require__.r(__webpack_exports__);
 // means it doesn't take into account transforms.
 
 function getLayoutRect(element) {
-  var clientRect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__.default)(element); // Use the clientRect sizes if it's not been transformed.
+  var clientRect = (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element); // Use the clientRect sizes if it's not been transformed.
   // Fixes https://github.com/popperjs/popper-core/issues/1223
 
   var width = element.offsetWidth;
@@ -706,10 +741,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function getNodeScroll(node) {
-  if (node === (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(node) || !(0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_1__.isHTMLElement)(node)) {
-    return (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_2__.default)(node);
+  if (node === (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node) || !(0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_1__.isHTMLElement)(node)) {
+    return (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_2__["default"])(node);
   } else {
-    return (0,_getHTMLElementScroll_js__WEBPACK_IMPORTED_MODULE_3__.default)(node);
+    return (0,_getHTMLElementScroll_js__WEBPACK_IMPORTED_MODULE_3__["default"])(node);
   }
 }
 
@@ -741,7 +776,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function getTrueOffsetParent(element) {
   if (!(0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || // https://github.com/popperjs/popper-core/issues/837
-  (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__.default)(element).position === 'fixed') {
+  (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element).position === 'fixed') {
     return null;
   }
 
@@ -756,17 +791,17 @@ function getContainingBlock(element) {
 
   if (isIE && (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element)) {
     // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
-    var elementCss = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__.default)(element);
+    var elementCss = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element);
 
     if (elementCss.position === 'fixed') {
       return null;
     }
   }
 
-  var currentNode = (0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_2__.default)(element);
+  var currentNode = (0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_2__["default"])(element);
 
-  while ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(currentNode) && ['html', 'body'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__.default)(currentNode)) < 0) {
-    var css = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__.default)(currentNode); // This is non-exhaustive but covers the most common CSS properties that
+  while ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(currentNode) && ['html', 'body'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__["default"])(currentNode)) < 0) {
+    var css = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__["default"])(currentNode); // This is non-exhaustive but covers the most common CSS properties that
     // create a containing block.
     // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
 
@@ -783,14 +818,14 @@ function getContainingBlock(element) {
 
 
 function getOffsetParent(element) {
-  var window = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_4__.default)(element);
+  var window = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_4__["default"])(element);
   var offsetParent = getTrueOffsetParent(element);
 
-  while (offsetParent && (0,_isTableElement_js__WEBPACK_IMPORTED_MODULE_5__.default)(offsetParent) && (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__.default)(offsetParent).position === 'static') {
+  while (offsetParent && (0,_isTableElement_js__WEBPACK_IMPORTED_MODULE_5__["default"])(offsetParent) && (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__["default"])(offsetParent).position === 'static') {
     offsetParent = getTrueOffsetParent(offsetParent);
   }
 
-  if (offsetParent && ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__.default)(offsetParent) === 'html' || (0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__.default)(offsetParent) === 'body' && (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__.default)(offsetParent).position === 'static')) {
+  if (offsetParent && ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__["default"])(offsetParent) === 'html' || (0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_3__["default"])(offsetParent) === 'body' && (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_1__["default"])(offsetParent).position === 'static')) {
     return window;
   }
 
@@ -817,7 +852,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function getParentNode(element) {
-  if ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__.default)(element) === 'html') {
+  if ((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element) === 'html') {
     return element;
   }
 
@@ -828,7 +863,7 @@ function getParentNode(element) {
     element.parentNode || ( // DOM Element detected
     (0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_1__.isShadowRoot)(element) ? element.host : null) || // ShadowRoot detected
     // $FlowFixMe[incompatible-call]: HTMLElement is a Node
-    (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_2__.default)(element) // fallback
+    (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_2__["default"])(element) // fallback
 
   );
 }
@@ -855,16 +890,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function getScrollParent(node) {
-  if (['html', 'body', '#document'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__.default)(node)) >= 0) {
+  if (['html', 'body', '#document'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node)) >= 0) {
     // $FlowFixMe[incompatible-return]: assume body is always available
     return node.ownerDocument.body;
   }
 
-  if ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_1__.isHTMLElement)(node) && (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_2__.default)(node)) {
+  if ((0,_instanceOf_js__WEBPACK_IMPORTED_MODULE_1__.isHTMLElement)(node) && (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_2__["default"])(node)) {
     return node;
   }
 
-  return getScrollParent((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_3__.default)(node));
+  return getScrollParent((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_3__["default"])(node));
 }
 
 /***/ }),
@@ -887,8 +922,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function getViewportRect(element) {
-  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(element);
-  var html = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__.default)(element);
+  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element);
+  var html = (0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element);
   var visualViewport = win.visualViewport;
   var width = html.clientWidth;
   var height = html.clientHeight;
@@ -919,7 +954,7 @@ function getViewportRect(element) {
   return {
     width: width,
     height: height,
-    x: x + (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_2__.default)(element),
+    x: x + (0,_getWindowScrollBarX_js__WEBPACK_IMPORTED_MODULE_2__["default"])(element),
     y: y
   };
 }
@@ -966,7 +1001,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getWindow_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getWindow.js */ "./node_modules/@popperjs/core/lib/dom-utils/getWindow.js");
 
 function getWindowScroll(node) {
-  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(node);
+  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node);
   var scrollLeft = win.pageXOffset;
   var scrollTop = win.pageYOffset;
   return {
@@ -1002,7 +1037,7 @@ function getWindowScrollBarX(element) {
   // anyway.
   // Browsers where the left scrollbar doesn't cause an issue report `0` for
   // this (e.g. Edge 2019, IE11, Safari)
-  return (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__.default)((0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__.default)(element)).left + (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_2__.default)(element).scrollLeft;
+  return (0,_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element)).left + (0,_getWindowScroll_js__WEBPACK_IMPORTED_MODULE_2__["default"])(element).scrollLeft;
 }
 
 /***/ }),
@@ -1024,12 +1059,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function isElement(node) {
-  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(node).Element;
+  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node).Element;
   return node instanceof OwnElement || node instanceof Element;
 }
 
 function isHTMLElement(node) {
-  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(node).HTMLElement;
+  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node).HTMLElement;
   return node instanceof OwnElement || node instanceof HTMLElement;
 }
 
@@ -1039,7 +1074,7 @@ function isShadowRoot(node) {
     return false;
   }
 
-  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(node).ShadowRoot;
+  var OwnElement = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(node).ShadowRoot;
   return node instanceof OwnElement || node instanceof ShadowRoot;
 }
 
@@ -1062,7 +1097,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function isScrollParent(element) {
   // Firefox wants us to check `-x` and `-y` variations as well
-  var _getComputedStyle = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_0__.default)(element),
+  var _getComputedStyle = (0,_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element),
       overflow = _getComputedStyle.overflow,
       overflowX = _getComputedStyle.overflowX,
       overflowY = _getComputedStyle.overflowY;
@@ -1086,7 +1121,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getNodeName_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNodeName.js */ "./node_modules/@popperjs/core/lib/dom-utils/getNodeName.js");
 
 function isTableElement(element) {
-  return ['table', 'td', 'th'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__.default)(element)) >= 0;
+  return ['table', 'td', 'th'].indexOf((0,_getNodeName_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element)) >= 0;
 }
 
 /***/ }),
@@ -1124,13 +1159,13 @@ function listScrollParents(element, list) {
     list = [];
   }
 
-  var scrollParent = (0,_getScrollParent_js__WEBPACK_IMPORTED_MODULE_0__.default)(element);
+  var scrollParent = (0,_getScrollParent_js__WEBPACK_IMPORTED_MODULE_0__["default"])(element);
   var isBody = scrollParent === ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
-  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_1__.default)(scrollParent);
-  var target = isBody ? [win].concat(win.visualViewport || [], (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_2__.default)(scrollParent) ? scrollParent : []) : scrollParent;
+  var win = (0,_getWindow_js__WEBPACK_IMPORTED_MODULE_1__["default"])(scrollParent);
+  var target = isBody ? [win].concat(win.visualViewport || [], (0,_isScrollParent_js__WEBPACK_IMPORTED_MODULE_2__["default"])(scrollParent) ? scrollParent : []) : scrollParent;
   var updatedList = list.concat(target);
   return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-  updatedList.concat(listScrollParents((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_3__.default)(target)));
+  updatedList.concat(listScrollParents((0,_getParentNode_js__WEBPACK_IMPORTED_MODULE_3__["default"])(target)));
 }
 
 /***/ }),
@@ -1246,7 +1281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "popperOffsets": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_1__.popperOffsets),
 /* harmony export */   "preventOverflow": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_1__.preventOverflow),
 /* harmony export */   "popperGenerator": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_2__.popperGenerator),
-/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_3__.default),
+/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "createPopperBase": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_2__.createPopper),
 /* harmony export */   "createPopper": () => (/* reexport safe */ _popper_js__WEBPACK_IMPORTED_MODULE_4__.createPopper),
 /* harmony export */   "createPopperLite": () => (/* reexport safe */ _popper_lite_js__WEBPACK_IMPORTED_MODULE_5__.createPopper)
@@ -1292,7 +1327,7 @@ function applyStyles(_ref) {
     var attributes = state.attributes[name] || {};
     var element = state.elements[name]; // arrow is optional + virtual elements
 
-    if (!(0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || !(0,_dom_utils_getNodeName_js__WEBPACK_IMPORTED_MODULE_1__.default)(element)) {
+    if (!(0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || !(0,_dom_utils_getNodeName_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element)) {
       return;
     } // Flow doesn't support to extend this property, but it's the most
     // effective way to apply styles to an HTMLElement
@@ -1344,7 +1379,7 @@ function effect(_ref2) {
         return style;
       }, {}); // arrow is optional + virtual elements
 
-      if (!(0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || !(0,_dom_utils_getNodeName_js__WEBPACK_IMPORTED_MODULE_1__.default)(element)) {
+      if (!(0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || !(0,_dom_utils_getNodeName_js__WEBPACK_IMPORTED_MODULE_1__["default"])(element)) {
         return;
       }
 
@@ -1404,7 +1439,7 @@ var toPaddingObject = function toPaddingObject(padding, state) {
   padding = typeof padding === 'function' ? padding(Object.assign({}, state.rects, {
     placement: state.placement
   })) : padding;
-  return (0,_utils_mergePaddingObject_js__WEBPACK_IMPORTED_MODULE_0__.default)(typeof padding !== 'number' ? padding : (0,_utils_expandToHashMap_js__WEBPACK_IMPORTED_MODULE_1__.default)(padding, _enums_js__WEBPACK_IMPORTED_MODULE_2__.basePlacements));
+  return (0,_utils_mergePaddingObject_js__WEBPACK_IMPORTED_MODULE_0__["default"])(typeof padding !== 'number' ? padding : (0,_utils_expandToHashMap_js__WEBPACK_IMPORTED_MODULE_1__["default"])(padding, _enums_js__WEBPACK_IMPORTED_MODULE_2__.basePlacements));
 };
 
 function arrow(_ref) {
@@ -1415,8 +1450,8 @@ function arrow(_ref) {
       options = _ref.options;
   var arrowElement = state.elements.arrow;
   var popperOffsets = state.modifiersData.popperOffsets;
-  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(state.placement);
-  var axis = (0,_utils_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_4__.default)(basePlacement);
+  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(state.placement);
+  var axis = (0,_utils_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_4__["default"])(basePlacement);
   var isVertical = [_enums_js__WEBPACK_IMPORTED_MODULE_2__.left, _enums_js__WEBPACK_IMPORTED_MODULE_2__.right].indexOf(basePlacement) >= 0;
   var len = isVertical ? 'height' : 'width';
 
@@ -1425,12 +1460,12 @@ function arrow(_ref) {
   }
 
   var paddingObject = toPaddingObject(options.padding, state);
-  var arrowRect = (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_5__.default)(arrowElement);
+  var arrowRect = (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_5__["default"])(arrowElement);
   var minProp = axis === 'y' ? _enums_js__WEBPACK_IMPORTED_MODULE_2__.top : _enums_js__WEBPACK_IMPORTED_MODULE_2__.left;
   var maxProp = axis === 'y' ? _enums_js__WEBPACK_IMPORTED_MODULE_2__.bottom : _enums_js__WEBPACK_IMPORTED_MODULE_2__.right;
   var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
   var startDiff = popperOffsets[axis] - state.rects.reference[axis];
-  var arrowOffsetParent = (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_6__.default)(arrowElement);
+  var arrowOffsetParent = (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_6__["default"])(arrowElement);
   var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
   var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
   // outside of the popper bounds
@@ -1438,7 +1473,7 @@ function arrow(_ref) {
   var min = paddingObject[minProp];
   var max = clientSize - arrowRect[len] - paddingObject[maxProp];
   var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
-  var offset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_7__.default)(min, center, max); // Prevents breaking syntax highlighting...
+  var offset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_7__["default"])(min, center, max); // Prevents breaking syntax highlighting...
 
   var axisProp = axis;
   state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
@@ -1469,7 +1504,7 @@ function effect(_ref2) {
     }
   }
 
-  if (!(0,_dom_utils_contains_js__WEBPACK_IMPORTED_MODULE_9__.default)(state.elements.popper, arrowElement)) {
+  if (!(0,_dom_utils_contains_js__WEBPACK_IMPORTED_MODULE_9__["default"])(state.elements.popper, arrowElement)) {
     if (true) {
       console.error(['Popper: "arrow" modifier\'s `element` must be a child of the popper', 'element.'].join(' '));
     }
@@ -1511,7 +1546,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom-utils/getDocumentElement.js */ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js");
 /* harmony import */ var _dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dom-utils/getComputedStyle.js */ "./node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js");
 /* harmony import */ var _utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/getBasePlacement.js */ "./node_modules/@popperjs/core/lib/utils/getBasePlacement.js");
+/* harmony import */ var _utils_getVariation_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/getVariation.js */ "./node_modules/@popperjs/core/lib/utils/getVariation.js");
 /* harmony import */ var _utils_math_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/math.js */ "./node_modules/@popperjs/core/lib/utils/math.js");
+
 
 
 
@@ -1546,6 +1583,7 @@ function mapToStyles(_ref2) {
   var popper = _ref2.popper,
       popperRect = _ref2.popperRect,
       placement = _ref2.placement,
+      variation = _ref2.variation,
       offsets = _ref2.offsets,
       position = _ref2.position,
       gpuAcceleration = _ref2.gpuAcceleration,
@@ -1565,14 +1603,14 @@ function mapToStyles(_ref2) {
   var win = window;
 
   if (adaptive) {
-    var offsetParent = (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_2__.default)(popper);
+    var offsetParent = (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_2__["default"])(popper);
     var heightProp = 'clientHeight';
     var widthProp = 'clientWidth';
 
-    if (offsetParent === (0,_dom_utils_getWindow_js__WEBPACK_IMPORTED_MODULE_3__.default)(popper)) {
-      offsetParent = (0,_dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_4__.default)(popper);
+    if (offsetParent === (0,_dom_utils_getWindow_js__WEBPACK_IMPORTED_MODULE_3__["default"])(popper)) {
+      offsetParent = (0,_dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_4__["default"])(popper);
 
-      if ((0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_5__.default)(offsetParent).position !== 'static') {
+      if ((0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_5__["default"])(offsetParent).position !== 'static' && position === 'absolute') {
         heightProp = 'scrollHeight';
         widthProp = 'scrollWidth';
       }
@@ -1581,14 +1619,14 @@ function mapToStyles(_ref2) {
 
     offsetParent = offsetParent;
 
-    if (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.top) {
+    if (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.top || (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.left || placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.right) && variation === _enums_js__WEBPACK_IMPORTED_MODULE_1__.end) {
       sideY = _enums_js__WEBPACK_IMPORTED_MODULE_1__.bottom; // $FlowFixMe[prop-missing]
 
       y -= offsetParent[heightProp] - popperRect.height;
       y *= gpuAcceleration ? 1 : -1;
     }
 
-    if (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.left) {
+    if (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.left || (placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.top || placement === _enums_js__WEBPACK_IMPORTED_MODULE_1__.bottom) && variation === _enums_js__WEBPACK_IMPORTED_MODULE_1__.end) {
       sideX = _enums_js__WEBPACK_IMPORTED_MODULE_1__.right; // $FlowFixMe[prop-missing]
 
       x -= offsetParent[widthProp] - popperRect.width;
@@ -1603,7 +1641,7 @@ function mapToStyles(_ref2) {
   if (gpuAcceleration) {
     var _Object$assign;
 
-    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
   }
 
   return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
@@ -1620,7 +1658,7 @@ function computeStyles(_ref4) {
       roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
 
   if (true) {
-    var transitionProperty = (0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_5__.default)(state.elements.popper).transitionProperty || '';
+    var transitionProperty = (0,_dom_utils_getComputedStyle_js__WEBPACK_IMPORTED_MODULE_5__["default"])(state.elements.popper).transitionProperty || '';
 
     if (adaptive && ['transform', 'top', 'right', 'bottom', 'left'].some(function (property) {
       return transitionProperty.indexOf(property) >= 0;
@@ -1630,7 +1668,8 @@ function computeStyles(_ref4) {
   }
 
   var commonStyles = {
-    placement: (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_6__.default)(state.placement),
+    placement: (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_6__["default"])(state.placement),
+    variation: (0,_utils_getVariation_js__WEBPACK_IMPORTED_MODULE_7__["default"])(state.placement),
     popper: state.elements.popper,
     popperRect: state.rects.popper,
     gpuAcceleration: gpuAcceleration
@@ -1696,7 +1735,7 @@ function effect(_ref) {
       scroll = _options$scroll === void 0 ? true : _options$scroll,
       _options$resize = options.resize,
       resize = _options$resize === void 0 ? true : _options$resize;
-  var window = (0,_dom_utils_getWindow_js__WEBPACK_IMPORTED_MODULE_0__.default)(state.elements.popper);
+  var window = (0,_dom_utils_getWindow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(state.elements.popper);
   var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
 
   if (scroll) {
@@ -1761,12 +1800,12 @@ __webpack_require__.r(__webpack_exports__);
  // eslint-disable-next-line import/no-unused-modules
 
 function getExpandedFallbackPlacements(placement) {
-  if ((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.auto) {
+  if ((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.auto) {
     return [];
   }
 
-  var oppositePlacement = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__.default)(placement);
-  return [(0,_utils_getOppositeVariationPlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(placement), oppositePlacement, (0,_utils_getOppositeVariationPlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(oppositePlacement)];
+  var oppositePlacement = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__["default"])(placement);
+  return [(0,_utils_getOppositeVariationPlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(placement), oppositePlacement, (0,_utils_getOppositeVariationPlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(oppositePlacement)];
 }
 
 function flip(_ref) {
@@ -1791,11 +1830,11 @@ function flip(_ref) {
       flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
       allowedAutoPlacements = options.allowedAutoPlacements;
   var preferredPlacement = state.options.placement;
-  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(preferredPlacement);
+  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(preferredPlacement);
   var isBasePlacement = basePlacement === preferredPlacement;
-  var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [(0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__.default)(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
+  var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [(0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__["default"])(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
   var placements = [preferredPlacement].concat(fallbackPlacements).reduce(function (acc, placement) {
-    return acc.concat((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.auto ? (0,_utils_computeAutoPlacement_js__WEBPACK_IMPORTED_MODULE_4__.default)(state, {
+    return acc.concat((0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.auto ? (0,_utils_computeAutoPlacement_js__WEBPACK_IMPORTED_MODULE_4__["default"])(state, {
       placement: placement,
       boundary: boundary,
       rootBoundary: rootBoundary,
@@ -1813,12 +1852,12 @@ function flip(_ref) {
   for (var i = 0; i < placements.length; i++) {
     var placement = placements[i];
 
-    var _basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(placement);
+    var _basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(placement);
 
-    var isStartVariation = (0,_utils_getVariation_js__WEBPACK_IMPORTED_MODULE_5__.default)(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.start;
+    var isStartVariation = (0,_utils_getVariation_js__WEBPACK_IMPORTED_MODULE_5__["default"])(placement) === _enums_js__WEBPACK_IMPORTED_MODULE_1__.start;
     var isVertical = [_enums_js__WEBPACK_IMPORTED_MODULE_1__.top, _enums_js__WEBPACK_IMPORTED_MODULE_1__.bottom].indexOf(_basePlacement) >= 0;
     var len = isVertical ? 'width' : 'height';
-    var overflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_6__.default)(state, {
+    var overflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_6__["default"])(state, {
       placement: placement,
       boundary: boundary,
       rootBoundary: rootBoundary,
@@ -1828,10 +1867,10 @@ function flip(_ref) {
     var mainVariationSide = isVertical ? isStartVariation ? _enums_js__WEBPACK_IMPORTED_MODULE_1__.right : _enums_js__WEBPACK_IMPORTED_MODULE_1__.left : isStartVariation ? _enums_js__WEBPACK_IMPORTED_MODULE_1__.bottom : _enums_js__WEBPACK_IMPORTED_MODULE_1__.top;
 
     if (referenceRect[len] > popperRect[len]) {
-      mainVariationSide = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__.default)(mainVariationSide);
+      mainVariationSide = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__["default"])(mainVariationSide);
     }
 
-    var altVariationSide = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__.default)(mainVariationSide);
+    var altVariationSide = (0,_utils_getOppositePlacement_js__WEBPACK_IMPORTED_MODULE_2__["default"])(mainVariationSide);
     var checks = [];
 
     if (checkMainAxis) {
@@ -1946,10 +1985,10 @@ function hide(_ref) {
   var referenceRect = state.rects.reference;
   var popperRect = state.rects.popper;
   var preventedOffsets = state.modifiersData.preventOverflow;
-  var referenceOverflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_1__.default)(state, {
+  var referenceOverflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_1__["default"])(state, {
     elementContext: 'reference'
   });
-  var popperAltOverflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_1__.default)(state, {
+  var popperAltOverflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_1__["default"])(state, {
     altBoundary: true
   });
   var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
@@ -1988,15 +2027,15 @@ function hide(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "applyStyles": () => (/* reexport safe */ _applyStyles_js__WEBPACK_IMPORTED_MODULE_0__.default),
-/* harmony export */   "arrow": () => (/* reexport safe */ _arrow_js__WEBPACK_IMPORTED_MODULE_1__.default),
-/* harmony export */   "computeStyles": () => (/* reexport safe */ _computeStyles_js__WEBPACK_IMPORTED_MODULE_2__.default),
-/* harmony export */   "eventListeners": () => (/* reexport safe */ _eventListeners_js__WEBPACK_IMPORTED_MODULE_3__.default),
-/* harmony export */   "flip": () => (/* reexport safe */ _flip_js__WEBPACK_IMPORTED_MODULE_4__.default),
-/* harmony export */   "hide": () => (/* reexport safe */ _hide_js__WEBPACK_IMPORTED_MODULE_5__.default),
-/* harmony export */   "offset": () => (/* reexport safe */ _offset_js__WEBPACK_IMPORTED_MODULE_6__.default),
-/* harmony export */   "popperOffsets": () => (/* reexport safe */ _popperOffsets_js__WEBPACK_IMPORTED_MODULE_7__.default),
-/* harmony export */   "preventOverflow": () => (/* reexport safe */ _preventOverflow_js__WEBPACK_IMPORTED_MODULE_8__.default)
+/* harmony export */   "applyStyles": () => (/* reexport safe */ _applyStyles_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   "arrow": () => (/* reexport safe */ _arrow_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   "computeStyles": () => (/* reexport safe */ _computeStyles_js__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "eventListeners": () => (/* reexport safe */ _eventListeners_js__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "flip": () => (/* reexport safe */ _flip_js__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   "hide": () => (/* reexport safe */ _hide_js__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   "offset": () => (/* reexport safe */ _offset_js__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   "popperOffsets": () => (/* reexport safe */ _popperOffsets_js__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   "preventOverflow": () => (/* reexport safe */ _preventOverflow_js__WEBPACK_IMPORTED_MODULE_8__["default"])
 /* harmony export */ });
 /* harmony import */ var _applyStyles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./applyStyles.js */ "./node_modules/@popperjs/core/lib/modifiers/applyStyles.js");
 /* harmony import */ var _arrow_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./arrow.js */ "./node_modules/@popperjs/core/lib/modifiers/arrow.js");
@@ -2036,7 +2075,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function distanceAndSkiddingToXY(placement, rects, offset) {
-  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(placement);
+  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(placement);
   var invertDistance = [_enums_js__WEBPACK_IMPORTED_MODULE_1__.left, _enums_js__WEBPACK_IMPORTED_MODULE_1__.top].indexOf(basePlacement) >= 0 ? -1 : 1;
 
   var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
@@ -2110,7 +2149,7 @@ function popperOffsets(_ref) {
   // properly positioned near its reference element
   // This is the most basic placement, and will be adjusted by
   // the modifiers in the next step
-  state.modifiersData[name] = (0,_utils_computeOffsets_js__WEBPACK_IMPORTED_MODULE_0__.default)({
+  state.modifiersData[name] = (0,_utils_computeOffsets_js__WEBPACK_IMPORTED_MODULE_0__["default"])({
     reference: state.rects.reference,
     element: state.rects.popper,
     strategy: 'absolute',
@@ -2179,17 +2218,17 @@ function preventOverflow(_ref) {
       tether = _options$tether === void 0 ? true : _options$tether,
       _options$tetherOffset = options.tetherOffset,
       tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
-  var overflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_0__.default)(state, {
+  var overflow = (0,_utils_detectOverflow_js__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
     boundary: boundary,
     rootBoundary: rootBoundary,
     padding: padding,
     altBoundary: altBoundary
   });
-  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_1__.default)(state.placement);
-  var variation = (0,_utils_getVariation_js__WEBPACK_IMPORTED_MODULE_2__.default)(state.placement);
+  var basePlacement = (0,_utils_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_1__["default"])(state.placement);
+  var variation = (0,_utils_getVariation_js__WEBPACK_IMPORTED_MODULE_2__["default"])(state.placement);
   var isBasePlacement = !variation;
-  var mainAxis = (0,_utils_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(basePlacement);
-  var altAxis = (0,_utils_getAltAxis_js__WEBPACK_IMPORTED_MODULE_4__.default)(mainAxis);
+  var mainAxis = (0,_utils_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(basePlacement);
+  var altAxis = (0,_utils_getAltAxis_js__WEBPACK_IMPORTED_MODULE_4__["default"])(mainAxis);
   var popperOffsets = state.modifiersData.popperOffsets;
   var referenceRect = state.rects.reference;
   var popperRect = state.rects.popper;
@@ -2218,11 +2257,11 @@ function preventOverflow(_ref) {
     // outside the reference bounds
 
     var arrowElement = state.elements.arrow;
-    var arrowRect = tether && arrowElement ? (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_6__.default)(arrowElement) : {
+    var arrowRect = tether && arrowElement ? (0,_dom_utils_getLayoutRect_js__WEBPACK_IMPORTED_MODULE_6__["default"])(arrowElement) : {
       width: 0,
       height: 0
     };
-    var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : (0,_utils_getFreshSideObject_js__WEBPACK_IMPORTED_MODULE_7__.default)();
+    var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : (0,_utils_getFreshSideObject_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
     var arrowPaddingMin = arrowPaddingObject[mainSide];
     var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
     // to include its full size in the calculation. If the reference is small
@@ -2230,17 +2269,17 @@ function preventOverflow(_ref) {
     // reference is not overflowing as well (e.g. virtual elements with no
     // width or height)
 
-    var arrowLen = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__.default)(0, referenceRect[len], arrowRect[len]);
+    var arrowLen = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__["default"])(0, referenceRect[len], arrowRect[len]);
     var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - tetherOffsetValue : minLen - arrowLen - arrowPaddingMin - tetherOffsetValue;
     var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + tetherOffsetValue : maxLen + arrowLen + arrowPaddingMax + tetherOffsetValue;
-    var arrowOffsetParent = state.elements.arrow && (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_9__.default)(state.elements.arrow);
+    var arrowOffsetParent = state.elements.arrow && (0,_dom_utils_getOffsetParent_js__WEBPACK_IMPORTED_MODULE_9__["default"])(state.elements.arrow);
     var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
     var offsetModifierValue = state.modifiersData.offset ? state.modifiersData.offset[state.placement][mainAxis] : 0;
     var tetherMin = popperOffsets[mainAxis] + minOffset - offsetModifierValue - clientOffset;
     var tetherMax = popperOffsets[mainAxis] + maxOffset - offsetModifierValue;
 
     if (checkMainAxis) {
-      var preventedOffset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__.default)(tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.min)(min, tetherMin) : min, offset, tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.max)(max, tetherMax) : max);
+      var preventedOffset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__["default"])(tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.min)(min, tetherMin) : min, offset, tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.max)(max, tetherMax) : max);
       popperOffsets[mainAxis] = preventedOffset;
       data[mainAxis] = preventedOffset - offset;
     }
@@ -2256,7 +2295,7 @@ function preventOverflow(_ref) {
 
       var _max = _offset - overflow[_altSide];
 
-      var _preventedOffset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__.default)(tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.min)(_min, tetherMin) : _min, _offset, tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.max)(_max, tetherMax) : _max);
+      var _preventedOffset = (0,_utils_within_js__WEBPACK_IMPORTED_MODULE_8__["default"])(tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.min)(_min, tetherMin) : _min, _offset, tether ? (0,_utils_math_js__WEBPACK_IMPORTED_MODULE_10__.max)(_max, tetherMax) : _max);
 
       popperOffsets[altAxis] = _preventedOffset;
       data[altAxis] = _preventedOffset - _offset;
@@ -2289,7 +2328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "createPopper": () => (/* binding */ createPopper),
 /* harmony export */   "popperGenerator": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_4__.popperGenerator),
 /* harmony export */   "defaultModifiers": () => (/* binding */ defaultModifiers),
-/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_5__.default)
+/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_5__["default"])
 /* harmony export */ });
 /* harmony import */ var _createPopper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createPopper.js */ "./node_modules/@popperjs/core/lib/createPopper.js");
 /* harmony import */ var _createPopper_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./createPopper.js */ "./node_modules/@popperjs/core/lib/utils/detectOverflow.js");
@@ -2302,7 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var defaultModifiers = [_modifiers_eventListeners_js__WEBPACK_IMPORTED_MODULE_0__.default, _modifiers_popperOffsets_js__WEBPACK_IMPORTED_MODULE_1__.default, _modifiers_computeStyles_js__WEBPACK_IMPORTED_MODULE_2__.default, _modifiers_applyStyles_js__WEBPACK_IMPORTED_MODULE_3__.default];
+var defaultModifiers = [_modifiers_eventListeners_js__WEBPACK_IMPORTED_MODULE_0__["default"], _modifiers_popperOffsets_js__WEBPACK_IMPORTED_MODULE_1__["default"], _modifiers_computeStyles_js__WEBPACK_IMPORTED_MODULE_2__["default"], _modifiers_applyStyles_js__WEBPACK_IMPORTED_MODULE_3__["default"]];
 var createPopper = /*#__PURE__*/(0,_createPopper_js__WEBPACK_IMPORTED_MODULE_4__.popperGenerator)({
   defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
@@ -2323,7 +2362,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "createPopper": () => (/* binding */ createPopper),
 /* harmony export */   "popperGenerator": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_9__.popperGenerator),
 /* harmony export */   "defaultModifiers": () => (/* binding */ defaultModifiers),
-/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_10__.default),
+/* harmony export */   "detectOverflow": () => (/* reexport safe */ _createPopper_js__WEBPACK_IMPORTED_MODULE_10__["default"]),
 /* harmony export */   "createPopperLite": () => (/* reexport safe */ _popper_lite_js__WEBPACK_IMPORTED_MODULE_11__.createPopper),
 /* harmony export */   "applyStyles": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_12__.applyStyles),
 /* harmony export */   "arrow": () => (/* reexport safe */ _modifiers_index_js__WEBPACK_IMPORTED_MODULE_12__.arrow),
@@ -2358,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var defaultModifiers = [_modifiers_eventListeners_js__WEBPACK_IMPORTED_MODULE_0__.default, _modifiers_popperOffsets_js__WEBPACK_IMPORTED_MODULE_1__.default, _modifiers_computeStyles_js__WEBPACK_IMPORTED_MODULE_2__.default, _modifiers_applyStyles_js__WEBPACK_IMPORTED_MODULE_3__.default, _modifiers_offset_js__WEBPACK_IMPORTED_MODULE_4__.default, _modifiers_flip_js__WEBPACK_IMPORTED_MODULE_5__.default, _modifiers_preventOverflow_js__WEBPACK_IMPORTED_MODULE_6__.default, _modifiers_arrow_js__WEBPACK_IMPORTED_MODULE_7__.default, _modifiers_hide_js__WEBPACK_IMPORTED_MODULE_8__.default];
+var defaultModifiers = [_modifiers_eventListeners_js__WEBPACK_IMPORTED_MODULE_0__["default"], _modifiers_popperOffsets_js__WEBPACK_IMPORTED_MODULE_1__["default"], _modifiers_computeStyles_js__WEBPACK_IMPORTED_MODULE_2__["default"], _modifiers_applyStyles_js__WEBPACK_IMPORTED_MODULE_3__["default"], _modifiers_offset_js__WEBPACK_IMPORTED_MODULE_4__["default"], _modifiers_flip_js__WEBPACK_IMPORTED_MODULE_5__["default"], _modifiers_preventOverflow_js__WEBPACK_IMPORTED_MODULE_6__["default"], _modifiers_arrow_js__WEBPACK_IMPORTED_MODULE_7__["default"], _modifiers_hide_js__WEBPACK_IMPORTED_MODULE_8__["default"]];
 var createPopper = /*#__PURE__*/(0,_createPopper_js__WEBPACK_IMPORTED_MODULE_9__.popperGenerator)({
   defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
@@ -2403,9 +2442,9 @@ function computeAutoPlacement(state, options) {
       flipVariations = _options.flipVariations,
       _options$allowedAutoP = _options.allowedAutoPlacements,
       allowedAutoPlacements = _options$allowedAutoP === void 0 ? _enums_js__WEBPACK_IMPORTED_MODULE_0__.placements : _options$allowedAutoP;
-  var variation = (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__.default)(placement);
+  var variation = (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__["default"])(placement);
   var placements = variation ? flipVariations ? _enums_js__WEBPACK_IMPORTED_MODULE_0__.variationPlacements : _enums_js__WEBPACK_IMPORTED_MODULE_0__.variationPlacements.filter(function (placement) {
-    return (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__.default)(placement) === variation;
+    return (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__["default"])(placement) === variation;
   }) : _enums_js__WEBPACK_IMPORTED_MODULE_0__.basePlacements;
   var allowedPlacements = placements.filter(function (placement) {
     return allowedAutoPlacements.indexOf(placement) >= 0;
@@ -2421,12 +2460,12 @@ function computeAutoPlacement(state, options) {
 
 
   var overflows = allowedPlacements.reduce(function (acc, placement) {
-    acc[placement] = (0,_detectOverflow_js__WEBPACK_IMPORTED_MODULE_2__.default)(state, {
+    acc[placement] = (0,_detectOverflow_js__WEBPACK_IMPORTED_MODULE_2__["default"])(state, {
       placement: placement,
       boundary: boundary,
       rootBoundary: rootBoundary,
       padding: padding
-    })[(0,_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(placement)];
+    })[(0,_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(placement)];
     return acc;
   }, {});
   return Object.keys(overflows).sort(function (a, b) {
@@ -2459,8 +2498,8 @@ function computeOffsets(_ref) {
   var reference = _ref.reference,
       element = _ref.element,
       placement = _ref.placement;
-  var basePlacement = placement ? (0,_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__.default)(placement) : null;
-  var variation = placement ? (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__.default)(placement) : null;
+  var basePlacement = placement ? (0,_getBasePlacement_js__WEBPACK_IMPORTED_MODULE_0__["default"])(placement) : null;
+  var variation = placement ? (0,_getVariation_js__WEBPACK_IMPORTED_MODULE_1__["default"])(placement) : null;
   var commonX = reference.x + reference.width / 2 - element.width / 2;
   var commonY = reference.y + reference.height / 2 - element.height / 2;
   var offsets;
@@ -2501,7 +2540,7 @@ function computeOffsets(_ref) {
       };
   }
 
-  var mainAxis = basePlacement ? (0,_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_3__.default)(basePlacement) : null;
+  var mainAxis = basePlacement ? (0,_getMainAxisFromPlacement_js__WEBPACK_IMPORTED_MODULE_3__["default"])(basePlacement) : null;
 
   if (mainAxis != null) {
     var len = mainAxis === 'y' ? 'height' : 'width';
@@ -2564,9 +2603,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ detectOverflow)
 /* harmony export */ });
-/* harmony import */ var _dom_utils_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dom-utils/getBoundingClientRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js");
 /* harmony import */ var _dom_utils_getClippingRect_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dom-utils/getClippingRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getClippingRect.js");
 /* harmony import */ var _dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dom-utils/getDocumentElement.js */ "./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js");
+/* harmony import */ var _dom_utils_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dom-utils/getBoundingClientRect.js */ "./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js");
 /* harmony import */ var _computeOffsets_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./computeOffsets.js */ "./node_modules/@popperjs/core/lib/utils/computeOffsets.js");
 /* harmony import */ var _rectToClientRect_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./rectToClientRect.js */ "./node_modules/@popperjs/core/lib/utils/rectToClientRect.js");
 /* harmony import */ var _enums_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums.js */ "./node_modules/@popperjs/core/lib/enums.js");
@@ -2601,20 +2640,19 @@ function detectOverflow(state, options) {
       altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
       _options$padding = _options.padding,
       padding = _options$padding === void 0 ? 0 : _options$padding;
-  var paddingObject = (0,_mergePaddingObject_js__WEBPACK_IMPORTED_MODULE_1__.default)(typeof padding !== 'number' ? padding : (0,_expandToHashMap_js__WEBPACK_IMPORTED_MODULE_2__.default)(padding, _enums_js__WEBPACK_IMPORTED_MODULE_0__.basePlacements));
+  var paddingObject = (0,_mergePaddingObject_js__WEBPACK_IMPORTED_MODULE_1__["default"])(typeof padding !== 'number' ? padding : (0,_expandToHashMap_js__WEBPACK_IMPORTED_MODULE_2__["default"])(padding, _enums_js__WEBPACK_IMPORTED_MODULE_0__.basePlacements));
   var altContext = elementContext === _enums_js__WEBPACK_IMPORTED_MODULE_0__.popper ? _enums_js__WEBPACK_IMPORTED_MODULE_0__.reference : _enums_js__WEBPACK_IMPORTED_MODULE_0__.popper;
-  var referenceElement = state.elements.reference;
   var popperRect = state.rects.popper;
   var element = state.elements[altBoundary ? altContext : elementContext];
-  var clippingClientRect = (0,_dom_utils_getClippingRect_js__WEBPACK_IMPORTED_MODULE_3__.default)((0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isElement)(element) ? element : element.contextElement || (0,_dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_5__.default)(state.elements.popper), boundary, rootBoundary);
-  var referenceClientRect = (0,_dom_utils_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_6__.default)(referenceElement);
-  var popperOffsets = (0,_computeOffsets_js__WEBPACK_IMPORTED_MODULE_7__.default)({
+  var clippingClientRect = (0,_dom_utils_getClippingRect_js__WEBPACK_IMPORTED_MODULE_3__["default"])((0,_dom_utils_instanceOf_js__WEBPACK_IMPORTED_MODULE_4__.isElement)(element) ? element : element.contextElement || (0,_dom_utils_getDocumentElement_js__WEBPACK_IMPORTED_MODULE_5__["default"])(state.elements.popper), boundary, rootBoundary);
+  var referenceClientRect = (0,_dom_utils_getBoundingClientRect_js__WEBPACK_IMPORTED_MODULE_6__["default"])(state.elements.reference);
+  var popperOffsets = (0,_computeOffsets_js__WEBPACK_IMPORTED_MODULE_7__["default"])({
     reference: referenceClientRect,
     element: popperRect,
     strategy: 'absolute',
     placement: placement
   });
-  var popperClientRect = (0,_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_8__.default)(Object.assign({}, popperRect, popperOffsets));
+  var popperClientRect = (0,_rectToClientRect_js__WEBPACK_IMPORTED_MODULE_8__["default"])(Object.assign({}, popperRect, popperOffsets));
   var elementClientRect = elementContext === _enums_js__WEBPACK_IMPORTED_MODULE_0__.popper ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
   // 0 or negative = within the clipping rect
 
@@ -2883,7 +2921,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _getFreshSideObject_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getFreshSideObject.js */ "./node_modules/@popperjs/core/lib/utils/getFreshSideObject.js");
 
 function mergePaddingObject(paddingObject) {
-  return Object.assign({}, (0,_getFreshSideObject_js__WEBPACK_IMPORTED_MODULE_0__.default)(), paddingObject);
+  return Object.assign({}, (0,_getFreshSideObject_js__WEBPACK_IMPORTED_MODULE_0__["default"])(), paddingObject);
 }
 
 /***/ }),
@@ -3014,51 +3052,56 @@ var MISSING_DEPENDENCY_ERROR = 'Popper: modifier "%s" requires "%s", but "%s" mo
 var VALID_PROPERTIES = ['name', 'enabled', 'phase', 'fn', 'effect', 'requires', 'options'];
 function validateModifiers(modifiers) {
   modifiers.forEach(function (modifier) {
-    Object.keys(modifier).forEach(function (key) {
+    [].concat(Object.keys(modifier), VALID_PROPERTIES) // IE11-compatible replacement for `new Set(iterable)`
+    .filter(function (value, index, self) {
+      return self.indexOf(value) === index;
+    }).forEach(function (key) {
       switch (key) {
         case 'name':
           if (typeof modifier.name !== 'string') {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, String(modifier.name), '"name"', '"string"', "\"" + String(modifier.name) + "\""));
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, String(modifier.name), '"name"', '"string"', "\"" + String(modifier.name) + "\""));
           }
 
           break;
 
         case 'enabled':
           if (typeof modifier.enabled !== 'boolean') {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', "\"" + String(modifier.enabled) + "\""));
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"enabled"', '"boolean"', "\"" + String(modifier.enabled) + "\""));
           }
+
+          break;
 
         case 'phase':
           if (_enums_js__WEBPACK_IMPORTED_MODULE_1__.modifierPhases.indexOf(modifier.phase) < 0) {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"phase"', "either " + _enums_js__WEBPACK_IMPORTED_MODULE_1__.modifierPhases.join(', '), "\"" + String(modifier.phase) + "\""));
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"phase"', "either " + _enums_js__WEBPACK_IMPORTED_MODULE_1__.modifierPhases.join(', '), "\"" + String(modifier.phase) + "\""));
           }
 
           break;
 
         case 'fn':
           if (typeof modifier.fn !== 'function') {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"fn"', '"function"', "\"" + String(modifier.fn) + "\""));
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"fn"', '"function"', "\"" + String(modifier.fn) + "\""));
           }
 
           break;
 
         case 'effect':
-          if (typeof modifier.effect !== 'function') {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', "\"" + String(modifier.fn) + "\""));
+          if (modifier.effect != null && typeof modifier.effect !== 'function') {
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"effect"', '"function"', "\"" + String(modifier.fn) + "\""));
           }
 
           break;
 
         case 'requires':
-          if (!Array.isArray(modifier.requires)) {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', "\"" + String(modifier.requires) + "\""));
+          if (modifier.requires != null && !Array.isArray(modifier.requires)) {
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"requires"', '"array"', "\"" + String(modifier.requires) + "\""));
           }
 
           break;
 
         case 'requiresIfExists':
           if (!Array.isArray(modifier.requiresIfExists)) {
-            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(INVALID_MODIFIER_ERROR, modifier.name, '"requiresIfExists"', '"array"', "\"" + String(modifier.requiresIfExists) + "\""));
+            console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(INVALID_MODIFIER_ERROR, modifier.name, '"requiresIfExists"', '"array"', "\"" + String(modifier.requiresIfExists) + "\""));
           }
 
           break;
@@ -3077,7 +3120,7 @@ function validateModifiers(modifiers) {
         if (modifiers.find(function (mod) {
           return mod.name === requirement;
         }) == null) {
-          console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__.default)(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
+          console.error((0,_format_js__WEBPACK_IMPORTED_MODULE_0__["default"])(MISSING_DEPENDENCY_ERROR, String(modifier.name), requirement, requirement));
         }
       });
     });
@@ -3181,6 +3224,15 @@ __webpack_require__.r(__webpack_exports__);
   //     $('.toast').toast('show');
   //   }
   // };
+
+  Drupal.behaviors.bsDarkMode = {
+    attach: function attach(context) {
+      // Hello darkness, my old friend.
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme)').media == 'not all' && !$('body').hasClass('bs--dark-mode')) {
+        $('body').addClass('bs--dark-mode');
+      }
+    }
+  };
 })(jQuery, Drupal);
 
 /***/ }),
@@ -3192,23 +3244,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap alert.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap alert.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3308,7 +3360,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/component-functions.js
+   * Bootstrap (v5.1.3): util/component-functions.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3316,7 +3368,7 @@ __webpack_require__.r(__webpack_exports__);
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default.default.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -3334,7 +3386,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): alert.js
+   * Bootstrap (v5.1.3): alert.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3357,7 +3409,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Alert extends BaseComponent__default['default'] {
+  class Alert extends BaseComponent__default.default {
     // Getters
     static get NAME() {
       return NAME;
@@ -3365,7 +3417,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     close() {
-      const closeEvent = EventHandler__default['default'].trigger(this._element, EVENT_CLOSE);
+      const closeEvent = EventHandler__default.default.trigger(this._element, EVENT_CLOSE);
 
       if (closeEvent.defaultPrevented) {
         return;
@@ -3382,7 +3434,7 @@ __webpack_require__.r(__webpack_exports__);
     _destroyElement() {
       this._element.remove();
 
-      EventHandler__default['default'].trigger(this._element, EVENT_CLOSED);
+      EventHandler__default.default.trigger(this._element, EVENT_CLOSED);
       this.dispose();
     } // Static
 
@@ -3423,7 +3475,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Alert;
 
-})));
+}));
 //# sourceMappingURL=alert.js.map
 
 
@@ -3436,23 +3488,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap base-component.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap base-component.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/data.js */ "./node_modules/bootstrap/js/dist/dom/data.js"), __webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js")) :
   0;
-}(this, (function (Data, EventHandler) { 'use strict';
+})(this, (function (Data, EventHandler) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3549,7 +3601,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): base-component.js
+   * Bootstrap (v5.1.3): base-component.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3559,7 +3611,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  const VERSION = '5.1.0';
+  const VERSION = '5.1.3';
 
   class BaseComponent {
     constructor(element) {
@@ -3570,12 +3622,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this._element = element;
-      Data__default['default'].set(this._element, this.constructor.DATA_KEY, this);
+      Data__default.default.set(this._element, this.constructor.DATA_KEY, this);
     }
 
     dispose() {
-      Data__default['default'].remove(this._element, this.constructor.DATA_KEY);
-      EventHandler__default['default'].off(this._element, this.constructor.EVENT_KEY);
+      Data__default.default.remove(this._element, this.constructor.DATA_KEY);
+      EventHandler__default.default.off(this._element, this.constructor.EVENT_KEY);
       Object.getOwnPropertyNames(this).forEach(propertyName => {
         this[propertyName] = null;
       });
@@ -3588,7 +3640,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     static getInstance(element) {
-      return Data__default['default'].get(getElement(element), this.DATA_KEY);
+      return Data__default.default.get(getElement(element), this.DATA_KEY);
     }
 
     static getOrCreateInstance(element, config = {}) {
@@ -3615,7 +3667,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return BaseComponent;
 
-})));
+}));
 //# sourceMappingURL=base-component.js.map
 
 
@@ -3628,23 +3680,23 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap button.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap button.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3699,7 +3751,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): button.js
+   * Bootstrap (v5.1.3): button.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3722,7 +3774,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Button extends BaseComponent__default['default'] {
+  class Button extends BaseComponent__default.default {
     // Getters
     static get NAME() {
       return NAME;
@@ -3753,7 +3805,7 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
     event.preventDefault();
     const button = event.target.closest(SELECTOR_DATA_TOGGLE);
     const data = Button.getOrCreateInstance(button);
@@ -3770,7 +3822,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Button;
 
-})));
+}));
 //# sourceMappingURL=button.js.map
 
 
@@ -3783,25 +3835,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap carousel.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap carousel.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -3973,7 +4025,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): carousel.js
+   * Bootstrap (v5.1.3): carousel.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -4054,7 +4106,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Carousel extends BaseComponent__default['default'] {
+  class Carousel extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._items = null;
@@ -4066,7 +4118,7 @@ __webpack_require__.r(__webpack_exports__);
       this.touchStartX = 0;
       this.touchDeltaX = 0;
       this._config = this._getConfig(config);
-      this._indicatorsElement = SelectorEngine__default['default'].findOne(SELECTOR_INDICATORS, this._element);
+      this._indicatorsElement = SelectorEngine__default.default.findOne(SELECTOR_INDICATORS, this._element);
       this._touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
       this._pointerEvent = Boolean(window.PointerEvent);
 
@@ -4104,7 +4156,7 @@ __webpack_require__.r(__webpack_exports__);
         this._isPaused = true;
       }
 
-      if (SelectorEngine__default['default'].findOne(SELECTOR_NEXT_PREV, this._element)) {
+      if (SelectorEngine__default.default.findOne(SELECTOR_NEXT_PREV, this._element)) {
         triggerTransitionEnd(this._element);
         this.cycle(true);
       }
@@ -4131,7 +4183,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     to(index) {
-      this._activeElement = SelectorEngine__default['default'].findOne(SELECTOR_ACTIVE_ITEM, this._element);
+      this._activeElement = SelectorEngine__default.default.findOne(SELECTOR_ACTIVE_ITEM, this._element);
 
       const activeIndex = this._getItemIndex(this._activeElement);
 
@@ -4140,7 +4192,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this._isSliding) {
-        EventHandler__default['default'].one(this._element, EVENT_SLID, () => this.to(index));
+        EventHandler__default.default.one(this._element, EVENT_SLID, () => this.to(index));
         return;
       }
 
@@ -4158,7 +4210,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME, config, DefaultType);
@@ -4184,12 +4236,12 @@ __webpack_require__.r(__webpack_exports__);
 
     _addEventListeners() {
       if (this._config.keyboard) {
-        EventHandler__default['default'].on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
+        EventHandler__default.default.on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
       }
 
       if (this._config.pause === 'hover') {
-        EventHandler__default['default'].on(this._element, EVENT_MOUSEENTER, event => this.pause(event));
-        EventHandler__default['default'].on(this._element, EVENT_MOUSELEAVE, event => this.cycle(event));
+        EventHandler__default.default.on(this._element, EVENT_MOUSEENTER, event => this.pause(event));
+        EventHandler__default.default.on(this._element, EVENT_MOUSELEAVE, event => this.cycle(event));
       }
 
       if (this._config.touch && this._touchSupported) {
@@ -4198,8 +4250,12 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _addTouchEventListeners() {
+      const hasPointerPenTouch = event => {
+        return this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
+      };
+
       const start = event => {
-        if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
+        if (hasPointerPenTouch(event)) {
           this.touchStartX = event.clientX;
         } else if (!this._pointerEvent) {
           this.touchStartX = event.touches[0].clientX;
@@ -4212,7 +4268,7 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       const end = event => {
-        if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
+        if (hasPointerPenTouch(event)) {
           this.touchDeltaX = event.clientX - this.touchStartX;
         }
 
@@ -4236,19 +4292,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
 
-      SelectorEngine__default['default'].find(SELECTOR_ITEM_IMG, this._element).forEach(itemImg => {
-        EventHandler__default['default'].on(itemImg, EVENT_DRAG_START, e => e.preventDefault());
+      SelectorEngine__default.default.find(SELECTOR_ITEM_IMG, this._element).forEach(itemImg => {
+        EventHandler__default.default.on(itemImg, EVENT_DRAG_START, event => event.preventDefault());
       });
 
       if (this._pointerEvent) {
-        EventHandler__default['default'].on(this._element, EVENT_POINTERDOWN, event => start(event));
-        EventHandler__default['default'].on(this._element, EVENT_POINTERUP, event => end(event));
+        EventHandler__default.default.on(this._element, EVENT_POINTERDOWN, event => start(event));
+        EventHandler__default.default.on(this._element, EVENT_POINTERUP, event => end(event));
 
         this._element.classList.add(CLASS_NAME_POINTER_EVENT);
       } else {
-        EventHandler__default['default'].on(this._element, EVENT_TOUCHSTART, event => start(event));
-        EventHandler__default['default'].on(this._element, EVENT_TOUCHMOVE, event => move(event));
-        EventHandler__default['default'].on(this._element, EVENT_TOUCHEND, event => end(event));
+        EventHandler__default.default.on(this._element, EVENT_TOUCHSTART, event => start(event));
+        EventHandler__default.default.on(this._element, EVENT_TOUCHMOVE, event => move(event));
+        EventHandler__default.default.on(this._element, EVENT_TOUCHEND, event => end(event));
       }
     }
 
@@ -4267,7 +4323,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _getItemIndex(element) {
-      this._items = element && element.parentNode ? SelectorEngine__default['default'].find(SELECTOR_ITEM, element.parentNode) : [];
+      this._items = element && element.parentNode ? SelectorEngine__default.default.find(SELECTOR_ITEM, element.parentNode) : [];
       return this._items.indexOf(element);
     }
 
@@ -4279,9 +4335,9 @@ __webpack_require__.r(__webpack_exports__);
     _triggerSlideEvent(relatedTarget, eventDirectionName) {
       const targetIndex = this._getItemIndex(relatedTarget);
 
-      const fromIndex = this._getItemIndex(SelectorEngine__default['default'].findOne(SELECTOR_ACTIVE_ITEM, this._element));
+      const fromIndex = this._getItemIndex(SelectorEngine__default.default.findOne(SELECTOR_ACTIVE_ITEM, this._element));
 
-      return EventHandler__default['default'].trigger(this._element, EVENT_SLIDE, {
+      return EventHandler__default.default.trigger(this._element, EVENT_SLIDE, {
         relatedTarget,
         direction: eventDirectionName,
         from: fromIndex,
@@ -4291,10 +4347,10 @@ __webpack_require__.r(__webpack_exports__);
 
     _setActiveIndicatorElement(element) {
       if (this._indicatorsElement) {
-        const activeIndicator = SelectorEngine__default['default'].findOne(SELECTOR_ACTIVE, this._indicatorsElement);
+        const activeIndicator = SelectorEngine__default.default.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
         activeIndicator.classList.remove(CLASS_NAME_ACTIVE);
         activeIndicator.removeAttribute('aria-current');
-        const indicators = SelectorEngine__default['default'].find(SELECTOR_INDICATOR, this._indicatorsElement);
+        const indicators = SelectorEngine__default.default.find(SELECTOR_INDICATOR, this._indicatorsElement);
 
         for (let i = 0; i < indicators.length; i++) {
           if (Number.parseInt(indicators[i].getAttribute('data-bs-slide-to'), 10) === this._getItemIndex(element)) {
@@ -4307,7 +4363,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _updateInterval() {
-      const element = this._activeElement || SelectorEngine__default['default'].findOne(SELECTOR_ACTIVE_ITEM, this._element);
+      const element = this._activeElement || SelectorEngine__default.default.findOne(SELECTOR_ACTIVE_ITEM, this._element);
 
       if (!element) {
         return;
@@ -4326,7 +4382,7 @@ __webpack_require__.r(__webpack_exports__);
     _slide(directionOrOrder, element) {
       const order = this._directionToOrder(directionOrOrder);
 
-      const activeElement = SelectorEngine__default['default'].findOne(SELECTOR_ACTIVE_ITEM, this._element);
+      const activeElement = SelectorEngine__default.default.findOne(SELECTOR_ACTIVE_ITEM, this._element);
 
       const activeElementIndex = this._getItemIndex(activeElement);
 
@@ -4372,7 +4428,7 @@ __webpack_require__.r(__webpack_exports__);
       this._activeElement = nextElement;
 
       const triggerSlidEvent = () => {
-        EventHandler__default['default'].trigger(this._element, EVENT_SLID, {
+        EventHandler__default.default.trigger(this._element, EVENT_SLID, {
           relatedTarget: nextElement,
           direction: eventDirectionName,
           from: activeElementIndex,
@@ -4473,8 +4529,8 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const config = { ...Manipulator__default['default'].getDataAttributes(target),
-        ...Manipulator__default['default'].getDataAttributes(this)
+      const config = { ...Manipulator__default.default.getDataAttributes(target),
+        ...Manipulator__default.default.getDataAttributes(this)
       };
       const slideIndex = this.getAttribute('data-bs-slide-to');
 
@@ -4499,9 +4555,9 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_SLIDE, Carousel.dataApiClickHandler);
-  EventHandler__default['default'].on(window, EVENT_LOAD_DATA_API, () => {
-    const carousels = SelectorEngine__default['default'].find(SELECTOR_DATA_RIDE);
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_SLIDE, Carousel.dataApiClickHandler);
+  EventHandler__default.default.on(window, EVENT_LOAD_DATA_API, () => {
+    const carousels = SelectorEngine__default.default.find(SELECTOR_DATA_RIDE);
 
     for (let i = 0, len = carousels.length; i < len; i++) {
       Carousel.carouselInterface(carousels[i], Carousel.getInstance(carousels[i]));
@@ -4518,7 +4574,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Carousel;
 
-})));
+}));
 //# sourceMappingURL=carousel.js.map
 
 
@@ -4531,26 +4587,26 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap collapse.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap collapse.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/data.js */ "./node_modules/bootstrap/js/dist/dom/data.js"), __webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -4703,7 +4759,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): collapse.js
+   * Bootstrap (v5.1.3): collapse.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -4734,10 +4790,11 @@ __webpack_require__.r(__webpack_exports__);
   const CLASS_NAME_COLLAPSE = 'collapse';
   const CLASS_NAME_COLLAPSING = 'collapsing';
   const CLASS_NAME_COLLAPSED = 'collapsed';
+  const CLASS_NAME_DEEPER_CHILDREN = `:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`;
   const CLASS_NAME_HORIZONTAL = 'collapse-horizontal';
   const WIDTH = 'width';
   const HEIGHT = 'height';
-  const SELECTOR_ACTIVES = '.show, .collapsing';
+  const SELECTOR_ACTIVES = '.collapse.show, .collapse.collapsing';
   const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="collapse"]';
   /**
    * ------------------------------------------------------------------------
@@ -4745,18 +4802,18 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Collapse extends BaseComponent__default['default'] {
+  class Collapse extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._isTransitioning = false;
       this._config = this._getConfig(config);
       this._triggerArray = [];
-      const toggleList = SelectorEngine__default['default'].find(SELECTOR_DATA_TOGGLE);
+      const toggleList = SelectorEngine__default.default.find(SELECTOR_DATA_TOGGLE);
 
       for (let i = 0, len = toggleList.length; i < len; i++) {
         const elem = toggleList[i];
         const selector = getSelectorFromElement(elem);
-        const filterElement = SelectorEngine__default['default'].find(selector).filter(foundElem => foundElem === this._element);
+        const filterElement = SelectorEngine__default.default.find(selector).filter(foundElem => foundElem === this._element);
 
         if (selector !== null && filterElement.length) {
           this._selector = selector;
@@ -4803,11 +4860,11 @@ __webpack_require__.r(__webpack_exports__);
       let activesData;
 
       if (this._config.parent) {
-        const children = SelectorEngine__default['default'].find(`.${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`, this._config.parent);
-        actives = SelectorEngine__default['default'].find(SELECTOR_ACTIVES, this._config.parent).filter(elem => !children.includes(elem)); // remove children if greater depth
+        const children = SelectorEngine__default.default.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+        actives = SelectorEngine__default.default.find(SELECTOR_ACTIVES, this._config.parent).filter(elem => !children.includes(elem)); // remove children if greater depth
       }
 
-      const container = SelectorEngine__default['default'].findOne(this._selector);
+      const container = SelectorEngine__default.default.findOne(this._selector);
 
       if (actives.length) {
         const tempActiveData = actives.find(elem => container !== elem);
@@ -4818,7 +4875,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      const startEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW);
+      const startEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -4832,7 +4889,7 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         if (!activesData) {
-          Data__default['default'].set(elemActive, DATA_KEY, null);
+          Data__default.default.set(elemActive, DATA_KEY, null);
         }
       });
 
@@ -4856,7 +4913,7 @@ __webpack_require__.r(__webpack_exports__);
         this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW);
 
         this._element.style[dimension] = '';
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN);
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN);
       };
 
       const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
@@ -4872,7 +4929,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const startEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE);
+      const startEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -4907,7 +4964,7 @@ __webpack_require__.r(__webpack_exports__);
 
         this._element.classList.add(CLASS_NAME_COLLAPSE);
 
-        EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default.default.trigger(this._element, EVENT_HIDDEN);
       };
 
       this._element.style[dimension] = '';
@@ -4922,7 +4979,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...config
       };
       config.toggle = Boolean(config.toggle); // Coerce string values
@@ -4941,8 +4998,8 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const children = SelectorEngine__default['default'].find(`.${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`, this._config.parent);
-      SelectorEngine__default['default'].find(SELECTOR_DATA_TOGGLE, this._config.parent).filter(elem => !children.includes(elem)).forEach(element => {
+      const children = SelectorEngine__default.default.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+      SelectorEngine__default.default.find(SELECTOR_DATA_TOGGLE, this._config.parent).filter(elem => !children.includes(elem)).forEach(element => {
         const selected = getElementFromSelector(element);
 
         if (selected) {
@@ -4996,14 +5053,14 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
     if (event.target.tagName === 'A' || event.delegateTarget && event.delegateTarget.tagName === 'A') {
       event.preventDefault();
     }
 
     const selector = getSelectorFromElement(this);
-    const selectorElements = SelectorEngine__default['default'].find(selector);
+    const selectorElements = SelectorEngine__default.default.find(selector);
     selectorElements.forEach(element => {
       Collapse.getOrCreateInstance(element, {
         toggle: false
@@ -5021,7 +5078,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Collapse;
 
-})));
+}));
 //# sourceMappingURL=collapse.js.map
 
 
@@ -5034,18 +5091,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module) {
 
 /*!
-  * Bootstrap data.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap data.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory() :
   0;
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): dom/data.js
+   * Bootstrap (v5.1.3): dom/data.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5056,7 +5113,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
   const elementMap = new Map();
-  var data = {
+  const data = {
     set(element, key, instance) {
       if (!elementMap.has(element)) {
         elementMap.set(element, new Map());
@@ -5099,7 +5156,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return data;
 
-})));
+}));
 //# sourceMappingURL=data.js.map
 
 
@@ -5112,18 +5169,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module) {
 
 /*!
-  * Bootstrap event-handler.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap event-handler.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory() :
   0;
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5142,7 +5199,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): dom/event-handler.js
+   * Bootstrap (v5.1.3): dom/event-handler.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5205,7 +5262,6 @@ __webpack_require__.r(__webpack_exports__);
             event.delegateTarget = target;
 
             if (handler.oneOff) {
-              // eslint-disable-next-line unicorn/consistent-destructuring
               EventHandler.off(element, event.type, selector, fn);
             }
 
@@ -5431,7 +5487,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return EventHandler;
 
-})));
+}));
 //# sourceMappingURL=event-handler.js.map
 
 
@@ -5444,18 +5500,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module) {
 
 /*!
-  * Bootstrap manipulator.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap manipulator.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory() :
   0;
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): dom/manipulator.js
+   * Bootstrap (v5.1.3): dom/manipulator.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5529,7 +5585,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Manipulator;
 
-})));
+}));
 //# sourceMappingURL=manipulator.js.map
 
 
@@ -5542,18 +5598,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module) {
 
 /*!
-  * Bootstrap selector-engine.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap selector-engine.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory() :
   0;
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5596,7 +5652,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): dom/selector-engine.js
+   * Bootstrap (v5.1.3): dom/selector-engine.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5666,7 +5722,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return SelectorEngine;
 
-})));
+}));
 //# sourceMappingURL=selector-engine.js.map
 
 
@@ -5679,46 +5735,44 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap dropdown.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap dropdown.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! @popperjs/core */ "./node_modules/@popperjs/core/lib/index.js"), __webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (Popper, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (Popper, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
   function _interopNamespace(e) {
     if (e && e.__esModule) return e;
-    var n = Object.create(null);
+    const n = Object.create(null);
     if (e) {
-      Object.keys(e).forEach(function (k) {
+      for (const k in e) {
         if (k !== 'default') {
-          var d = Object.getOwnPropertyDescriptor(e, k);
+          const d = Object.getOwnPropertyDescriptor(e, k);
           Object.defineProperty(n, k, d.get ? d : {
             enumerable: true,
-            get: function () {
-              return e[k];
-            }
+            get: () => e[k]
           });
         }
-      });
+      }
     }
-    n['default'] = e;
+    n.default = e;
     return Object.freeze(n);
   }
 
-  var Popper__namespace = /*#__PURE__*/_interopNamespace(Popper);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const Popper__namespace = /*#__PURE__*/_interopNamespace(Popper);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5902,7 +5956,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): dropdown.js
+   * Bootstrap (v5.1.3): dropdown.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -5968,7 +6022,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Dropdown extends BaseComponent__default['default'] {
+  class Dropdown extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._popper = null;
@@ -6003,7 +6057,7 @@ __webpack_require__.r(__webpack_exports__);
       const relatedTarget = {
         relatedTarget: this._element
       };
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW, relatedTarget);
+      const showEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW, relatedTarget);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -6012,7 +6066,7 @@ __webpack_require__.r(__webpack_exports__);
       const parent = Dropdown.getParentFromElement(this._element); // Totally disable Popper for Dropdowns in Navbar
 
       if (this._inNavbar) {
-        Manipulator__default['default'].setDataAttribute(this._menu, 'popper', 'none');
+        Manipulator__default.default.setDataAttribute(this._menu, 'popper', 'none');
       } else {
         this._createPopper(parent);
       } // If this is a touch-enabled device we add extra
@@ -6022,7 +6076,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       if ('ontouchstart' in document.documentElement && !parent.closest(SELECTOR_NAVBAR_NAV)) {
-        [].concat(...document.body.children).forEach(elem => EventHandler__default['default'].on(elem, 'mouseover', noop));
+        [].concat(...document.body.children).forEach(elem => EventHandler__default.default.on(elem, 'mouseover', noop));
       }
 
       this._element.focus();
@@ -6033,7 +6087,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this._element.classList.add(CLASS_NAME_SHOW);
 
-      EventHandler__default['default'].trigger(this._element, EVENT_SHOWN, relatedTarget);
+      EventHandler__default.default.trigger(this._element, EVENT_SHOWN, relatedTarget);
     }
 
     hide() {
@@ -6066,7 +6120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     _completeHide(relatedTarget) {
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE, relatedTarget);
+      const hideEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE, relatedTarget);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -6075,7 +6129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(elem => EventHandler__default['default'].off(elem, 'mouseover', noop));
+        [].concat(...document.body.children).forEach(elem => EventHandler__default.default.off(elem, 'mouseover', noop));
       }
 
       if (this._popper) {
@@ -6088,13 +6142,13 @@ __webpack_require__.r(__webpack_exports__);
 
       this._element.setAttribute('aria-expanded', 'false');
 
-      Manipulator__default['default'].removeDataAttribute(this._menu, 'popper');
-      EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN, relatedTarget);
+      Manipulator__default.default.removeDataAttribute(this._menu, 'popper');
+      EventHandler__default.default.trigger(this._element, EVENT_HIDDEN, relatedTarget);
     }
 
     _getConfig(config) {
       config = { ...this.constructor.Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...config
       };
       typeCheckConfig(NAME, config, this.constructor.DefaultType);
@@ -6128,7 +6182,7 @@ __webpack_require__.r(__webpack_exports__);
       this._popper = Popper__namespace.createPopper(referenceElement, this._menu, popperConfig);
 
       if (isDisplayStatic) {
-        Manipulator__default['default'].setDataAttribute(this._menu, 'popper', 'static');
+        Manipulator__default.default.setDataAttribute(this._menu, 'popper', 'static');
       }
     }
 
@@ -6137,7 +6191,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _getMenuElement() {
-      return SelectorEngine__default['default'].next(this._element, SELECTOR_MENU)[0];
+      return SelectorEngine__default.default.next(this._element, SELECTOR_MENU)[0];
     }
 
     _getPlacement() {
@@ -6213,7 +6267,7 @@ __webpack_require__.r(__webpack_exports__);
       key,
       target
     }) {
-      const items = SelectorEngine__default['default'].find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
+      const items = SelectorEngine__default.default.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
 
       if (!items.length) {
         return;
@@ -6246,7 +6300,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const toggles = SelectorEngine__default['default'].find(SELECTOR_DATA_TOGGLE);
+      const toggles = SelectorEngine__default.default.find(SELECTOR_DATA_TOGGLE);
 
       for (let i = 0, len = toggles.length; i < len; i++) {
         const context = Dropdown.getInstance(toggles[i]);
@@ -6314,7 +6368,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE) ? this : SelectorEngine__default['default'].prev(this, SELECTOR_DATA_TOGGLE)[0];
+      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE) ? this : SelectorEngine__default.default.prev(this, SELECTOR_DATA_TOGGLE)[0];
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
 
       if (event.key === ESCAPE_KEY) {
@@ -6345,11 +6399,11 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler);
-  EventHandler__default['default'].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, Dropdown.clearMenus);
-  EventHandler__default['default'].on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler);
+  EventHandler__default.default.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, Dropdown.clearMenus);
+  EventHandler__default.default.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     event.preventDefault();
     Dropdown.getOrCreateInstance(this).toggle();
   });
@@ -6364,7 +6418,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Dropdown;
 
-})));
+}));
 //# sourceMappingURL=dropdown.js.map
 
 
@@ -6377,25 +6431,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap modal.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap modal.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -6629,7 +6683,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/scrollBar.js
+   * Bootstrap (v5.1.3): util/scrollBar.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -6698,18 +6752,18 @@ __webpack_require__.r(__webpack_exports__);
       const actualValue = element.style[styleProp];
 
       if (actualValue) {
-        Manipulator__default['default'].setDataAttribute(element, styleProp, actualValue);
+        Manipulator__default.default.setDataAttribute(element, styleProp, actualValue);
       }
     }
 
     _resetElementAttributes(selector, styleProp) {
       const manipulationCallBack = element => {
-        const value = Manipulator__default['default'].getDataAttribute(element, styleProp);
+        const value = Manipulator__default.default.getDataAttribute(element, styleProp);
 
         if (typeof value === 'undefined') {
           element.style.removeProperty(styleProp);
         } else {
-          Manipulator__default['default'].removeDataAttribute(element, styleProp);
+          Manipulator__default.default.removeDataAttribute(element, styleProp);
           element.style[styleProp] = value;
         }
       };
@@ -6721,7 +6775,7 @@ __webpack_require__.r(__webpack_exports__);
       if (isElement(selector)) {
         callBack(selector);
       } else {
-        SelectorEngine__default['default'].find(selector, this._element).forEach(callBack);
+        SelectorEngine__default.default.find(selector, this._element).forEach(callBack);
       }
     }
 
@@ -6733,8 +6787,8 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/backdrop.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * Bootstrap (v5.1.3): util/backdrop.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   const Default$2 = {
@@ -6831,7 +6885,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this._config.rootElement.append(this._getElement());
 
-      EventHandler__default['default'].on(this._getElement(), EVENT_MOUSEDOWN, () => {
+      EventHandler__default.default.on(this._getElement(), EVENT_MOUSEDOWN, () => {
         execute(this._config.clickCallback);
       });
       this._isAppended = true;
@@ -6842,7 +6896,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      EventHandler__default['default'].off(this._element, EVENT_MOUSEDOWN);
+      EventHandler__default.default.off(this._element, EVENT_MOUSEDOWN);
 
       this._element.remove();
 
@@ -6857,8 +6911,8 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/focustrap.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * Bootstrap (v5.1.3): util/focustrap.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   const Default$1 = {
@@ -6900,10 +6954,10 @@ __webpack_require__.r(__webpack_exports__);
         trapElement.focus();
       }
 
-      EventHandler__default['default'].off(document, EVENT_KEY$1); // guard against infinite focus loop
+      EventHandler__default.default.off(document, EVENT_KEY$1); // guard against infinite focus loop
 
-      EventHandler__default['default'].on(document, EVENT_FOCUSIN, event => this._handleFocusin(event));
-      EventHandler__default['default'].on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
+      EventHandler__default.default.on(document, EVENT_FOCUSIN, event => this._handleFocusin(event));
+      EventHandler__default.default.on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
       this._isActive = true;
     }
 
@@ -6913,7 +6967,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this._isActive = false;
-      EventHandler__default['default'].off(document, EVENT_KEY$1);
+      EventHandler__default.default.off(document, EVENT_KEY$1);
     } // Private
 
 
@@ -6929,7 +6983,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const elements = SelectorEngine__default['default'].focusableChildren(trapElement);
+      const elements = SelectorEngine__default.default.focusableChildren(trapElement);
 
       if (elements.length === 0) {
         trapElement.focus();
@@ -6960,7 +7014,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/component-functions.js
+   * Bootstrap (v5.1.3): util/component-functions.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -6968,7 +7022,7 @@ __webpack_require__.r(__webpack_exports__);
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default.default.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -6986,7 +7040,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): modal.js
+   * Bootstrap (v5.1.3): modal.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -7026,6 +7080,7 @@ __webpack_require__.r(__webpack_exports__);
   const CLASS_NAME_FADE = 'fade';
   const CLASS_NAME_SHOW = 'show';
   const CLASS_NAME_STATIC = 'modal-static';
+  const OPEN_SELECTOR = '.modal.show';
   const SELECTOR_DIALOG = '.modal-dialog';
   const SELECTOR_MODAL_BODY = '.modal-body';
   const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="modal"]';
@@ -7035,11 +7090,11 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Modal extends BaseComponent__default['default'] {
+  class Modal extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._config = this._getConfig(config);
-      this._dialog = SelectorEngine__default['default'].findOne(SELECTOR_DIALOG, this._element);
+      this._dialog = SelectorEngine__default.default.findOne(SELECTOR_DIALOG, this._element);
       this._backdrop = this._initializeBackDrop();
       this._focustrap = this._initializeFocusTrap();
       this._isShown = false;
@@ -7067,7 +7122,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW, {
+      const showEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW, {
         relatedTarget
       });
 
@@ -7091,8 +7146,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this._setResizeEvent();
 
-      EventHandler__default['default'].on(this._dialog, EVENT_MOUSEDOWN_DISMISS, () => {
-        EventHandler__default['default'].one(this._element, EVENT_MOUSEUP_DISMISS, event => {
+      EventHandler__default.default.on(this._dialog, EVENT_MOUSEDOWN_DISMISS, () => {
+        EventHandler__default.default.one(this._element, EVENT_MOUSEUP_DISMISS, event => {
           if (event.target === this._element) {
             this._ignoreBackdropClick = true;
           }
@@ -7107,7 +7162,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE);
+      const hideEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -7129,14 +7184,14 @@ __webpack_require__.r(__webpack_exports__);
 
       this._element.classList.remove(CLASS_NAME_SHOW);
 
-      EventHandler__default['default'].off(this._element, EVENT_CLICK_DISMISS);
-      EventHandler__default['default'].off(this._dialog, EVENT_MOUSEDOWN_DISMISS);
+      EventHandler__default.default.off(this._element, EVENT_CLICK_DISMISS);
+      EventHandler__default.default.off(this._dialog, EVENT_MOUSEDOWN_DISMISS);
 
       this._queueCallback(() => this._hideModal(), this._element, isAnimated);
     }
 
     dispose() {
-      [window, this._dialog].forEach(htmlElement => EventHandler__default['default'].off(htmlElement, EVENT_KEY));
+      [window, this._dialog].forEach(htmlElement => EventHandler__default.default.off(htmlElement, EVENT_KEY));
 
       this._backdrop.dispose();
 
@@ -7166,7 +7221,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME, config, DefaultType);
@@ -7176,7 +7231,7 @@ __webpack_require__.r(__webpack_exports__);
     _showElement(relatedTarget) {
       const isAnimated = this._isAnimated();
 
-      const modalBody = SelectorEngine__default['default'].findOne(SELECTOR_MODAL_BODY, this._dialog);
+      const modalBody = SelectorEngine__default.default.findOne(SELECTOR_MODAL_BODY, this._dialog);
 
       if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
         // Don't move modal's DOM position
@@ -7209,7 +7264,7 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         this._isTransitioning = false;
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN, {
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN, {
           relatedTarget
         });
       };
@@ -7219,7 +7274,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _setEscapeEvent() {
       if (this._isShown) {
-        EventHandler__default['default'].on(this._element, EVENT_KEYDOWN_DISMISS, event => {
+        EventHandler__default.default.on(this._element, EVENT_KEYDOWN_DISMISS, event => {
           if (this._config.keyboard && event.key === ESCAPE_KEY) {
             event.preventDefault();
             this.hide();
@@ -7228,15 +7283,15 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       } else {
-        EventHandler__default['default'].off(this._element, EVENT_KEYDOWN_DISMISS);
+        EventHandler__default.default.off(this._element, EVENT_KEYDOWN_DISMISS);
       }
     }
 
     _setResizeEvent() {
       if (this._isShown) {
-        EventHandler__default['default'].on(window, EVENT_RESIZE, () => this._adjustDialog());
+        EventHandler__default.default.on(window, EVENT_RESIZE, () => this._adjustDialog());
       } else {
-        EventHandler__default['default'].off(window, EVENT_RESIZE);
+        EventHandler__default.default.off(window, EVENT_RESIZE);
       }
     }
 
@@ -7258,12 +7313,12 @@ __webpack_require__.r(__webpack_exports__);
 
         this._scrollBar.reset();
 
-        EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default.default.trigger(this._element, EVENT_HIDDEN);
       });
     }
 
     _showBackdrop(callback) {
-      EventHandler__default['default'].on(this._element, EVENT_CLICK_DISMISS, event => {
+      EventHandler__default.default.on(this._element, EVENT_CLICK_DISMISS, event => {
         if (this._ignoreBackdropClick) {
           this._ignoreBackdropClick = false;
           return;
@@ -7288,7 +7343,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _triggerBackdropTransition() {
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE_PREVENTED);
+      const hideEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE_PREVENTED);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -7373,25 +7428,32 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     const target = getElementFromSelector(this);
 
     if (['A', 'AREA'].includes(this.tagName)) {
       event.preventDefault();
     }
 
-    EventHandler__default['default'].one(target, EVENT_SHOW, showEvent => {
+    EventHandler__default.default.one(target, EVENT_SHOW, showEvent => {
       if (showEvent.defaultPrevented) {
         // only register focus restorer if modal will actually get shown
         return;
       }
 
-      EventHandler__default['default'].one(target, EVENT_HIDDEN, () => {
+      EventHandler__default.default.one(target, EVENT_HIDDEN, () => {
         if (isVisible(this)) {
           this.focus();
         }
       });
-    });
+    }); // avoid conflict when clicking moddal toggler while another one is open
+
+    const allReadyOpen = SelectorEngine__default.default.findOne(OPEN_SELECTOR);
+
+    if (allReadyOpen) {
+      Modal.getInstance(allReadyOpen).hide();
+    }
+
     const data = Modal.getOrCreateInstance(target);
     data.toggle(this);
   });
@@ -7407,7 +7469,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Modal;
 
-})));
+}));
 //# sourceMappingURL=modal.js.map
 
 
@@ -7420,25 +7482,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap offcanvas.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap offcanvas.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (SelectorEngine, Manipulator, EventHandler, BaseComponent) { 'use strict';
+})(this, (function (SelectorEngine, Manipulator, EventHandler, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -7670,7 +7732,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/scrollBar.js
+   * Bootstrap (v5.1.3): util/scrollBar.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -7739,18 +7801,18 @@ __webpack_require__.r(__webpack_exports__);
       const actualValue = element.style[styleProp];
 
       if (actualValue) {
-        Manipulator__default['default'].setDataAttribute(element, styleProp, actualValue);
+        Manipulator__default.default.setDataAttribute(element, styleProp, actualValue);
       }
     }
 
     _resetElementAttributes(selector, styleProp) {
       const manipulationCallBack = element => {
-        const value = Manipulator__default['default'].getDataAttribute(element, styleProp);
+        const value = Manipulator__default.default.getDataAttribute(element, styleProp);
 
         if (typeof value === 'undefined') {
           element.style.removeProperty(styleProp);
         } else {
-          Manipulator__default['default'].removeDataAttribute(element, styleProp);
+          Manipulator__default.default.removeDataAttribute(element, styleProp);
           element.style[styleProp] = value;
         }
       };
@@ -7762,7 +7824,7 @@ __webpack_require__.r(__webpack_exports__);
       if (isElement(selector)) {
         callBack(selector);
       } else {
-        SelectorEngine__default['default'].find(selector, this._element).forEach(callBack);
+        SelectorEngine__default.default.find(selector, this._element).forEach(callBack);
       }
     }
 
@@ -7774,8 +7836,8 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/backdrop.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * Bootstrap (v5.1.3): util/backdrop.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   const Default$2 = {
@@ -7872,7 +7934,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this._config.rootElement.append(this._getElement());
 
-      EventHandler__default['default'].on(this._getElement(), EVENT_MOUSEDOWN, () => {
+      EventHandler__default.default.on(this._getElement(), EVENT_MOUSEDOWN, () => {
         execute(this._config.clickCallback);
       });
       this._isAppended = true;
@@ -7883,7 +7945,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      EventHandler__default['default'].off(this._element, EVENT_MOUSEDOWN);
+      EventHandler__default.default.off(this._element, EVENT_MOUSEDOWN);
 
       this._element.remove();
 
@@ -7898,8 +7960,8 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/focustrap.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * Bootstrap (v5.1.3): util/focustrap.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   const Default$1 = {
@@ -7941,10 +8003,10 @@ __webpack_require__.r(__webpack_exports__);
         trapElement.focus();
       }
 
-      EventHandler__default['default'].off(document, EVENT_KEY$1); // guard against infinite focus loop
+      EventHandler__default.default.off(document, EVENT_KEY$1); // guard against infinite focus loop
 
-      EventHandler__default['default'].on(document, EVENT_FOCUSIN, event => this._handleFocusin(event));
-      EventHandler__default['default'].on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
+      EventHandler__default.default.on(document, EVENT_FOCUSIN, event => this._handleFocusin(event));
+      EventHandler__default.default.on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
       this._isActive = true;
     }
 
@@ -7954,7 +8016,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this._isActive = false;
-      EventHandler__default['default'].off(document, EVENT_KEY$1);
+      EventHandler__default.default.off(document, EVENT_KEY$1);
     } // Private
 
 
@@ -7970,7 +8032,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const elements = SelectorEngine__default['default'].focusableChildren(trapElement);
+      const elements = SelectorEngine__default.default.focusableChildren(trapElement);
 
       if (elements.length === 0) {
         trapElement.focus();
@@ -8001,7 +8063,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/component-functions.js
+   * Bootstrap (v5.1.3): util/component-functions.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8009,7 +8071,7 @@ __webpack_require__.r(__webpack_exports__);
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default.default.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -8027,8 +8089,8 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): offcanvas.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+   * Bootstrap (v5.1.3): offcanvas.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
   /**
@@ -8069,7 +8131,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Offcanvas extends BaseComponent__default['default'] {
+  class Offcanvas extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._config = this._getConfig(config);
@@ -8099,7 +8161,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW, {
+      const showEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW, {
         relatedTarget
       });
 
@@ -8129,7 +8191,7 @@ __webpack_require__.r(__webpack_exports__);
           this._focustrap.activate();
         }
 
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN, {
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN, {
           relatedTarget
         });
       };
@@ -8142,7 +8204,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE);
+      const hideEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -8171,7 +8233,7 @@ __webpack_require__.r(__webpack_exports__);
           new ScrollBarHelper().reset();
         }
 
-        EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default.default.trigger(this._element, EVENT_HIDDEN);
       };
 
       this._queueCallback(completeCallback, this._element, true);
@@ -8188,7 +8250,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...(typeof config === 'object' ? config : {})
       };
       typeCheckConfig(NAME, config, DefaultType);
@@ -8212,7 +8274,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _addEventListeners() {
-      EventHandler__default['default'].on(this._element, EVENT_KEYDOWN_DISMISS, event => {
+      EventHandler__default.default.on(this._element, EVENT_KEYDOWN_DISMISS, event => {
         if (this._config.keyboard && event.key === ESCAPE_KEY) {
           this.hide();
         }
@@ -8244,7 +8306,7 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     const target = getElementFromSelector(this);
 
     if (['A', 'AREA'].includes(this.tagName)) {
@@ -8255,14 +8317,14 @@ __webpack_require__.r(__webpack_exports__);
       return;
     }
 
-    EventHandler__default['default'].one(target, EVENT_HIDDEN, () => {
+    EventHandler__default.default.one(target, EVENT_HIDDEN, () => {
       // focus on trigger when it is closed
       if (isVisible(this)) {
         this.focus();
       }
     }); // avoid conflict when clicking a toggler of an offcanvas, while another is open
 
-    const allReadyOpen = SelectorEngine__default['default'].findOne(OPEN_SELECTOR);
+    const allReadyOpen = SelectorEngine__default.default.findOne(OPEN_SELECTOR);
 
     if (allReadyOpen && allReadyOpen !== target) {
       Offcanvas.getInstance(allReadyOpen).hide();
@@ -8271,7 +8333,7 @@ __webpack_require__.r(__webpack_exports__);
     const data = Offcanvas.getOrCreateInstance(target);
     data.toggle(this);
   });
-  EventHandler__default['default'].on(window, EVENT_LOAD_DATA_API, () => SelectorEngine__default['default'].find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
+  EventHandler__default.default.on(window, EVENT_LOAD_DATA_API, () => SelectorEngine__default.default.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
   enableDismissTrigger(Offcanvas);
   /**
    * ------------------------------------------------------------------------
@@ -8283,7 +8345,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Offcanvas;
 
-})));
+}));
 //# sourceMappingURL=offcanvas.js.map
 
 
@@ -8296,22 +8358,22 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap popover.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap popover.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./tooltip.js */ "./node_modules/bootstrap/js/dist/tooltip.js")) :
   0;
-}(this, (function (Tooltip) { 'use strict';
+})(this, (function (Tooltip) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(Tooltip);
+  const Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(Tooltip);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8366,7 +8428,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): popover.js
+   * Bootstrap (v5.1.3): popover.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8380,14 +8442,14 @@ __webpack_require__.r(__webpack_exports__);
   const DATA_KEY = 'bs.popover';
   const EVENT_KEY = `.${DATA_KEY}`;
   const CLASS_PREFIX = 'bs-popover';
-  const Default = { ...Tooltip__default['default'].Default,
+  const Default = { ...Tooltip__default.default.Default,
     placement: 'right',
     offset: [0, 8],
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="popover-arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div>' + '</div>'
   };
-  const DefaultType = { ...Tooltip__default['default'].DefaultType,
+  const DefaultType = { ...Tooltip__default.default.DefaultType,
     content: '(string|element|function)'
   };
   const Event = {
@@ -8410,7 +8472,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Popover extends Tooltip__default['default'] {
+  class Popover extends Tooltip__default.default {
     // Getters
     static get Default() {
       return Default;
@@ -8476,7 +8538,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Popover;
 
-})));
+}));
 //# sourceMappingURL=popover.js.map
 
 
@@ -8489,25 +8551,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap scrollspy.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap scrollspy.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8641,7 +8703,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): scrollspy.js
+   * Bootstrap (v5.1.3): scrollspy.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -8686,7 +8748,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class ScrollSpy extends BaseComponent__default['default'] {
+  class ScrollSpy extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._scrollElement = this._element.tagName === 'BODY' ? window : this._element;
@@ -8695,7 +8757,7 @@ __webpack_require__.r(__webpack_exports__);
       this._targets = [];
       this._activeTarget = null;
       this._scrollHeight = 0;
-      EventHandler__default['default'].on(this._scrollElement, EVENT_SCROLL, () => this._process());
+      EventHandler__default.default.on(this._scrollElement, EVENT_SCROLL, () => this._process());
       this.refresh();
 
       this._process();
@@ -8718,16 +8780,16 @@ __webpack_require__.r(__webpack_exports__);
       this._offsets = [];
       this._targets = [];
       this._scrollHeight = this._getScrollHeight();
-      const targets = SelectorEngine__default['default'].find(SELECTOR_LINK_ITEMS, this._config.target);
+      const targets = SelectorEngine__default.default.find(SELECTOR_LINK_ITEMS, this._config.target);
       targets.map(element => {
         const targetSelector = getSelectorFromElement(element);
-        const target = targetSelector ? SelectorEngine__default['default'].findOne(targetSelector) : null;
+        const target = targetSelector ? SelectorEngine__default.default.findOne(targetSelector) : null;
 
         if (target) {
           const targetBCR = target.getBoundingClientRect();
 
           if (targetBCR.width || targetBCR.height) {
-            return [Manipulator__default['default'][offsetMethod](target).top + offsetBase, targetSelector];
+            return [Manipulator__default.default[offsetMethod](target).top + offsetBase, targetSelector];
           }
         }
 
@@ -8740,14 +8802,14 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     dispose() {
-      EventHandler__default['default'].off(this._scrollElement, EVENT_KEY);
+      EventHandler__default.default.off(this._scrollElement, EVENT_KEY);
       super.dispose();
     } // Private
 
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...(typeof config === 'object' && config ? config : {})
       };
       config.target = getElement(config.target) || document.documentElement;
@@ -8811,30 +8873,30 @@ __webpack_require__.r(__webpack_exports__);
       this._clear();
 
       const queries = SELECTOR_LINK_ITEMS.split(',').map(selector => `${selector}[data-bs-target="${target}"],${selector}[href="${target}"]`);
-      const link = SelectorEngine__default['default'].findOne(queries.join(','), this._config.target);
+      const link = SelectorEngine__default.default.findOne(queries.join(','), this._config.target);
       link.classList.add(CLASS_NAME_ACTIVE);
 
       if (link.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
-        SelectorEngine__default['default'].findOne(SELECTOR_DROPDOWN_TOGGLE, link.closest(SELECTOR_DROPDOWN)).classList.add(CLASS_NAME_ACTIVE);
+        SelectorEngine__default.default.findOne(SELECTOR_DROPDOWN_TOGGLE, link.closest(SELECTOR_DROPDOWN)).classList.add(CLASS_NAME_ACTIVE);
       } else {
-        SelectorEngine__default['default'].parents(link, SELECTOR_NAV_LIST_GROUP).forEach(listGroup => {
+        SelectorEngine__default.default.parents(link, SELECTOR_NAV_LIST_GROUP).forEach(listGroup => {
           // Set triggered links parents as active
           // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-          SelectorEngine__default['default'].prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE)); // Handle special case when .nav-link is inside .nav-item
+          SelectorEngine__default.default.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE)); // Handle special case when .nav-link is inside .nav-item
 
-          SelectorEngine__default['default'].prev(listGroup, SELECTOR_NAV_ITEMS).forEach(navItem => {
-            SelectorEngine__default['default'].children(navItem, SELECTOR_NAV_LINKS).forEach(item => item.classList.add(CLASS_NAME_ACTIVE));
+          SelectorEngine__default.default.prev(listGroup, SELECTOR_NAV_ITEMS).forEach(navItem => {
+            SelectorEngine__default.default.children(navItem, SELECTOR_NAV_LINKS).forEach(item => item.classList.add(CLASS_NAME_ACTIVE));
           });
         });
       }
 
-      EventHandler__default['default'].trigger(this._scrollElement, EVENT_ACTIVATE, {
+      EventHandler__default.default.trigger(this._scrollElement, EVENT_ACTIVATE, {
         relatedTarget: target
       });
     }
 
     _clear() {
-      SelectorEngine__default['default'].find(SELECTOR_LINK_ITEMS, this._config.target).filter(node => node.classList.contains(CLASS_NAME_ACTIVE)).forEach(node => node.classList.remove(CLASS_NAME_ACTIVE));
+      SelectorEngine__default.default.find(SELECTOR_LINK_ITEMS, this._config.target).filter(node => node.classList.contains(CLASS_NAME_ACTIVE)).forEach(node => node.classList.remove(CLASS_NAME_ACTIVE));
     } // Static
 
 
@@ -8862,8 +8924,8 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(window, EVENT_LOAD_DATA_API, () => {
-    SelectorEngine__default['default'].find(SELECTOR_DATA_SPY).forEach(spy => new ScrollSpy(spy));
+  EventHandler__default.default.on(window, EVENT_LOAD_DATA_API, () => {
+    SelectorEngine__default.default.find(SELECTOR_DATA_SPY).forEach(spy => new ScrollSpy(spy));
   });
   /**
    * ------------------------------------------------------------------------
@@ -8876,7 +8938,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return ScrollSpy;
 
-})));
+}));
 //# sourceMappingURL=scrollspy.js.map
 
 
@@ -8889,24 +8951,24 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap tab.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap tab.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9020,7 +9082,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): tab.js
+   * Bootstrap (v5.1.3): tab.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9056,7 +9118,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Tab extends BaseComponent__default['default'] {
+  class Tab extends BaseComponent__default.default {
     // Getters
     static get NAME() {
       return NAME;
@@ -9075,14 +9137,14 @@ __webpack_require__.r(__webpack_exports__);
 
       if (listElement) {
         const itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
-        previous = SelectorEngine__default['default'].find(itemSelector, listElement);
+        previous = SelectorEngine__default.default.find(itemSelector, listElement);
         previous = previous[previous.length - 1];
       }
 
-      const hideEvent = previous ? EventHandler__default['default'].trigger(previous, EVENT_HIDE, {
+      const hideEvent = previous ? EventHandler__default.default.trigger(previous, EVENT_HIDE, {
         relatedTarget: this._element
       }) : null;
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW, {
+      const showEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW, {
         relatedTarget: previous
       });
 
@@ -9093,10 +9155,10 @@ __webpack_require__.r(__webpack_exports__);
       this._activate(this._element, listElement);
 
       const complete = () => {
-        EventHandler__default['default'].trigger(previous, EVENT_HIDDEN, {
+        EventHandler__default.default.trigger(previous, EVENT_HIDDEN, {
           relatedTarget: this._element
         });
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN, {
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN, {
           relatedTarget: previous
         });
       };
@@ -9110,7 +9172,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     _activate(element, container, callback) {
-      const activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? SelectorEngine__default['default'].find(SELECTOR_ACTIVE_UL, container) : SelectorEngine__default['default'].children(container, SELECTOR_ACTIVE);
+      const activeElements = container && (container.nodeName === 'UL' || container.nodeName === 'OL') ? SelectorEngine__default.default.find(SELECTOR_ACTIVE_UL, container) : SelectorEngine__default.default.children(container, SELECTOR_ACTIVE);
       const active = activeElements[0];
       const isTransitioning = callback && active && active.classList.contains(CLASS_NAME_FADE);
 
@@ -9128,7 +9190,7 @@ __webpack_require__.r(__webpack_exports__);
     _transitionComplete(element, active, callback) {
       if (active) {
         active.classList.remove(CLASS_NAME_ACTIVE);
-        const dropdownChild = SelectorEngine__default['default'].findOne(SELECTOR_DROPDOWN_ACTIVE_CHILD, active.parentNode);
+        const dropdownChild = SelectorEngine__default.default.findOne(SELECTOR_DROPDOWN_ACTIVE_CHILD, active.parentNode);
 
         if (dropdownChild) {
           dropdownChild.classList.remove(CLASS_NAME_ACTIVE);
@@ -9161,7 +9223,7 @@ __webpack_require__.r(__webpack_exports__);
         const dropdownElement = element.closest(SELECTOR_DROPDOWN);
 
         if (dropdownElement) {
-          SelectorEngine__default['default'].find(SELECTOR_DROPDOWN_TOGGLE, dropdownElement).forEach(dropdown => dropdown.classList.add(CLASS_NAME_ACTIVE));
+          SelectorEngine__default.default.find(SELECTOR_DROPDOWN_TOGGLE, dropdownElement).forEach(dropdown => dropdown.classList.add(CLASS_NAME_ACTIVE));
         }
 
         element.setAttribute('aria-expanded', true);
@@ -9195,7 +9257,7 @@ __webpack_require__.r(__webpack_exports__);
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     if (['A', 'AREA'].includes(this.tagName)) {
       event.preventDefault();
     }
@@ -9218,7 +9280,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Tab;
 
-})));
+}));
 //# sourceMappingURL=tab.js.map
 
 
@@ -9231,24 +9293,24 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap toast.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap toast.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (EventHandler, Manipulator, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, Manipulator, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9394,7 +9456,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/component-functions.js
+   * Bootstrap (v5.1.3): util/component-functions.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9402,7 +9464,7 @@ __webpack_require__.r(__webpack_exports__);
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default.default.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -9420,7 +9482,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): toast.js
+   * Bootstrap (v5.1.3): toast.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9462,7 +9524,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Toast extends BaseComponent__default['default'] {
+  class Toast extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._config = this._getConfig(config);
@@ -9488,7 +9550,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     show() {
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW);
+      const showEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -9503,7 +9565,7 @@ __webpack_require__.r(__webpack_exports__);
       const complete = () => {
         this._element.classList.remove(CLASS_NAME_SHOWING);
 
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN);
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN);
 
         this._maybeScheduleHide();
       };
@@ -9525,7 +9587,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE);
+      const hideEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -9539,7 +9601,7 @@ __webpack_require__.r(__webpack_exports__);
 
         this._element.classList.remove(CLASS_NAME_SHOW);
 
-        EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default.default.trigger(this._element, EVENT_HIDDEN);
       };
 
       this._element.classList.add(CLASS_NAME_SHOWING);
@@ -9560,7 +9622,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...(typeof config === 'object' && config ? config : {})
       };
       typeCheckConfig(NAME, config, this.constructor.DefaultType);
@@ -9610,10 +9672,10 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _setListeners() {
-      EventHandler__default['default'].on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
-      EventHandler__default['default'].on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
-      EventHandler__default['default'].on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
-      EventHandler__default['default'].on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
+      EventHandler__default.default.on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
+      EventHandler__default.default.on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
+      EventHandler__default.default.on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
+      EventHandler__default.default.on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
     }
 
     _clearTimeout() {
@@ -9650,7 +9712,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Toast;
 
-})));
+}));
 //# sourceMappingURL=toast.js.map
 
 
@@ -9663,47 +9725,45 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
-  * Bootstrap tooltip.js v5.1.0 (https://getbootstrap.com/)
+  * Bootstrap tooltip.js v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
    true ? module.exports = factory(__webpack_require__(/*! @popperjs/core */ "./node_modules/@popperjs/core/lib/index.js"), __webpack_require__(/*! ./dom/data.js */ "./node_modules/bootstrap/js/dist/dom/data.js"), __webpack_require__(/*! ./dom/event-handler.js */ "./node_modules/bootstrap/js/dist/dom/event-handler.js"), __webpack_require__(/*! ./dom/manipulator.js */ "./node_modules/bootstrap/js/dist/dom/manipulator.js"), __webpack_require__(/*! ./dom/selector-engine.js */ "./node_modules/bootstrap/js/dist/dom/selector-engine.js"), __webpack_require__(/*! ./base-component.js */ "./node_modules/bootstrap/js/dist/base-component.js")) :
   0;
-}(this, (function (Popper, Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (Popper, Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
   function _interopNamespace(e) {
     if (e && e.__esModule) return e;
-    var n = Object.create(null);
+    const n = Object.create(null);
     if (e) {
-      Object.keys(e).forEach(function (k) {
+      for (const k in e) {
         if (k !== 'default') {
-          var d = Object.getOwnPropertyDescriptor(e, k);
+          const d = Object.getOwnPropertyDescriptor(e, k);
           Object.defineProperty(n, k, d.get ? d : {
             enumerable: true,
-            get: function () {
-              return e[k];
-            }
+            get: () => e[k]
           });
         }
-      });
+      }
     }
-    n['default'] = e;
+    n.default = e;
     return Object.freeze(n);
   }
 
-  var Popper__namespace = /*#__PURE__*/_interopNamespace(Popper);
-  var Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const Popper__namespace = /*#__PURE__*/_interopNamespace(Popper);
+  const Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/index.js
+   * Bootstrap (v5.1.3): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -9845,42 +9905,42 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): util/sanitizer.js
+   * Bootstrap (v5.1.3): util/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
-  const uriAttrs = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
+  const uriAttributes = new Set(['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href']);
   const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
   /**
    * A pattern that recognizes a commonly useful subset of URLs that are safe.
    *
-   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
    */
 
-  const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/i;
+  const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
   /**
    * A pattern that matches safe data URLs. Only matches image, video and audio types.
    *
-   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
    */
 
   const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
 
-  const allowedAttribute = (attr, allowedAttributeList) => {
-    const attrName = attr.nodeName.toLowerCase();
+  const allowedAttribute = (attribute, allowedAttributeList) => {
+    const attributeName = attribute.nodeName.toLowerCase();
 
-    if (allowedAttributeList.includes(attrName)) {
-      if (uriAttrs.has(attrName)) {
-        return Boolean(SAFE_URL_PATTERN.test(attr.nodeValue) || DATA_URL_PATTERN.test(attr.nodeValue));
+    if (allowedAttributeList.includes(attributeName)) {
+      if (uriAttributes.has(attributeName)) {
+        return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue) || DATA_URL_PATTERN.test(attribute.nodeValue));
       }
 
       return true;
     }
 
-    const regExp = allowedAttributeList.filter(attrRegex => attrRegex instanceof RegExp); // Check if a regular expression validates the attribute.
+    const regExp = allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp); // Check if a regular expression validates the attribute.
 
     for (let i = 0, len = regExp.length; i < len; i++) {
-      if (regExp[i].test(attrName)) {
+      if (regExp[i].test(attributeName)) {
         return true;
       }
     }
@@ -9932,23 +9992,22 @@ __webpack_require__.r(__webpack_exports__);
 
     const domParser = new window.DOMParser();
     const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
-    const allowlistKeys = Object.keys(allowList);
     const elements = [].concat(...createdDocument.body.querySelectorAll('*'));
 
     for (let i = 0, len = elements.length; i < len; i++) {
-      const el = elements[i];
-      const elName = el.nodeName.toLowerCase();
+      const element = elements[i];
+      const elementName = element.nodeName.toLowerCase();
 
-      if (!allowlistKeys.includes(elName)) {
-        el.remove();
+      if (!Object.keys(allowList).includes(elementName)) {
+        element.remove();
         continue;
       }
 
-      const attributeList = [].concat(...el.attributes);
-      const allowedAttributes = [].concat(allowList['*'] || [], allowList[elName] || []);
-      attributeList.forEach(attr => {
-        if (!allowedAttribute(attr, allowedAttributes)) {
-          el.removeAttribute(attr.nodeName);
+      const attributeList = [].concat(...element.attributes);
+      const allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || []);
+      attributeList.forEach(attribute => {
+        if (!allowedAttribute(attribute, allowedAttributes)) {
+          element.removeAttribute(attribute.nodeName);
         }
       });
     }
@@ -9958,7 +10017,7 @@ __webpack_require__.r(__webpack_exports__);
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.0): tooltip.js
+   * Bootstrap (v5.1.3): tooltip.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -10048,7 +10107,7 @@ __webpack_require__.r(__webpack_exports__);
    * ------------------------------------------------------------------------
    */
 
-  class Tooltip extends BaseComponent__default['default'] {
+  class Tooltip extends BaseComponent__default.default {
     constructor(element, config) {
       if (typeof Popper__namespace === 'undefined') {
         throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
@@ -10126,15 +10185,13 @@ __webpack_require__.r(__webpack_exports__);
 
     dispose() {
       clearTimeout(this._timeout);
-      EventHandler__default['default'].off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler__default.default.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
 
       if (this.tip) {
         this.tip.remove();
       }
 
-      if (this._popper) {
-        this._popper.destroy();
-      }
+      this._disposePopper();
 
       super.dispose();
     }
@@ -10148,12 +10205,21 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      const showEvent = EventHandler__default['default'].trigger(this._element, this.constructor.Event.SHOW);
+      const showEvent = EventHandler__default.default.trigger(this._element, this.constructor.Event.SHOW);
       const shadowRoot = findShadowRoot(this._element);
       const isInTheDom = shadowRoot === null ? this._element.ownerDocument.documentElement.contains(this._element) : shadowRoot.contains(this._element);
 
       if (showEvent.defaultPrevented || !isInTheDom) {
         return;
+      } // A trick to recreate a tooltip in case a new title is given by using the NOT documented `data-bs-original-title`
+      // This will be removed later in favor of a `setContent` method
+
+
+      if (this.constructor.NAME === 'tooltip' && this.tip && this.getTitle() !== this.tip.querySelector(SELECTOR_TOOLTIP_INNER).innerHTML) {
+        this._disposePopper();
+
+        this.tip.remove();
+        this.tip = null;
       }
 
       const tip = this.getTipElement();
@@ -10175,11 +10241,11 @@ __webpack_require__.r(__webpack_exports__);
       const {
         container
       } = this._config;
-      Data__default['default'].set(tip, this.constructor.DATA_KEY, this);
+      Data__default.default.set(tip, this.constructor.DATA_KEY, this);
 
       if (!this._element.ownerDocument.documentElement.contains(this.tip)) {
         container.append(tip);
-        EventHandler__default['default'].trigger(this._element, this.constructor.Event.INSERTED);
+        EventHandler__default.default.trigger(this._element, this.constructor.Event.INSERTED);
       }
 
       if (this._popper) {
@@ -10202,14 +10268,14 @@ __webpack_require__.r(__webpack_exports__);
 
       if ('ontouchstart' in document.documentElement) {
         [].concat(...document.body.children).forEach(element => {
-          EventHandler__default['default'].on(element, 'mouseover', noop);
+          EventHandler__default.default.on(element, 'mouseover', noop);
         });
       }
 
       const complete = () => {
         const prevHoverState = this._hoverState;
         this._hoverState = null;
-        EventHandler__default['default'].trigger(this._element, this.constructor.Event.SHOWN);
+        EventHandler__default.default.trigger(this._element, this.constructor.Event.SHOWN);
 
         if (prevHoverState === HOVER_STATE_OUT) {
           this._leave(null, this);
@@ -10241,16 +10307,12 @@ __webpack_require__.r(__webpack_exports__);
 
         this._element.removeAttribute('aria-describedby');
 
-        EventHandler__default['default'].trigger(this._element, this.constructor.Event.HIDDEN);
+        EventHandler__default.default.trigger(this._element, this.constructor.Event.HIDDEN);
 
-        if (this._popper) {
-          this._popper.destroy();
-
-          this._popper = null;
-        }
+        this._disposePopper();
       };
 
-      const hideEvent = EventHandler__default['default'].trigger(this._element, this.constructor.Event.HIDE);
+      const hideEvent = EventHandler__default.default.trigger(this._element, this.constructor.Event.HIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -10260,7 +10322,7 @@ __webpack_require__.r(__webpack_exports__);
       // empty mouseover listeners we added for iOS support
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(element => EventHandler__default['default'].off(element, 'mouseover', noop));
+        [].concat(...document.body.children).forEach(element => EventHandler__default.default.off(element, 'mouseover', noop));
       }
 
       this._activeTrigger[TRIGGER_CLICK] = false;
@@ -10303,7 +10365,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _sanitizeAndSetContent(template, content, selector) {
-      const templateElement = SelectorEngine__default['default'].findOne(selector, template);
+      const templateElement = SelectorEngine__default.default.findOne(selector, template);
 
       if (!content && templateElement) {
         templateElement.remove();
@@ -10441,12 +10503,12 @@ __webpack_require__.r(__webpack_exports__);
 
       triggers.forEach(trigger => {
         if (trigger === 'click') {
-          EventHandler__default['default'].on(this._element, this.constructor.Event.CLICK, this._config.selector, event => this.toggle(event));
+          EventHandler__default.default.on(this._element, this.constructor.Event.CLICK, this._config.selector, event => this.toggle(event));
         } else if (trigger !== TRIGGER_MANUAL) {
           const eventIn = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSEENTER : this.constructor.Event.FOCUSIN;
           const eventOut = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSELEAVE : this.constructor.Event.FOCUSOUT;
-          EventHandler__default['default'].on(this._element, eventIn, this._config.selector, event => this._enter(event));
-          EventHandler__default['default'].on(this._element, eventOut, this._config.selector, event => this._leave(event));
+          EventHandler__default.default.on(this._element, eventIn, this._config.selector, event => this._enter(event));
+          EventHandler__default.default.on(this._element, eventOut, this._config.selector, event => this._leave(event));
         }
       });
 
@@ -10456,7 +10518,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
 
-      EventHandler__default['default'].on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
+      EventHandler__default.default.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
 
       if (this._config.selector) {
         this._config = { ...this._config,
@@ -10548,7 +10610,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     _getConfig(config) {
-      const dataAttributes = Manipulator__default['default'].getDataAttributes(this._element);
+      const dataAttributes = Manipulator__default.default.getDataAttributes(this._element);
       Object.keys(dataAttributes).forEach(dataAttr => {
         if (DISALLOWED_ATTRIBUTES.has(dataAttr)) {
           delete dataAttributes[dataAttr];
@@ -10627,6 +10689,14 @@ __webpack_require__.r(__webpack_exports__);
       this._cleanTipClass();
 
       this._addAttachmentClass(this._getAttachment(state.placement));
+    }
+
+    _disposePopper() {
+      if (this._popper) {
+        this._popper.destroy();
+
+        this._popper = null;
+      }
     } // Static
 
 
@@ -10657,7 +10727,7 @@ __webpack_require__.r(__webpack_exports__);
 
   return Tooltip;
 
-})));
+}));
 //# sourceMappingURL=tooltip.js.map
 
 
@@ -10730,7 +10800,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 				if(fulfilled) {
 /******/ 					deferred.splice(i--, 1)
-/******/ 					result = fn();
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
@@ -10807,12 +10878,14 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 			// add "moreModules" to the modules object,
 /******/ 			// then flag all "chunkIds" as loaded and fire callback
 /******/ 			var moduleId, chunkId, i = 0;
-/******/ 			for(moduleId in moreModules) {
-/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
 /******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
 /******/ 			}
-/******/ 			if(runtime) runtime(__webpack_require__);
 /******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
 /******/ 			for(;i < chunkIds.length; i++) {
 /******/ 				chunkId = chunkIds[i];
@@ -10821,7 +10894,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 				installedChunks[chunkIds[i]] = 0;
 /******/ 			}
-/******/ 			__webpack_require__.O();
+/******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
 /******/ 		var chunkLoadingGlobal = self["webpackChunkboostrap_drupal_theme"] = self["webpackChunkboostrap_drupal_theme"] || [];

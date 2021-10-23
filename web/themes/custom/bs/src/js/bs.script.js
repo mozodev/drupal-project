@@ -20,4 +20,15 @@ import './_bootstrap.js';
   //   }
   // };
 
+  Drupal.behaviors.bsDarkMode = {
+    attach: context => {
+      // Hello darkness, my old friend.
+      if (window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme)').media == 'not all' &&
+        !$('body').hasClass('bs--dark-mode')) {
+        $('body').addClass('bs--dark-mode')
+      }
+    }
+  }
+
 })(jQuery, Drupal);

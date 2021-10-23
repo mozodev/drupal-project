@@ -1,0 +1,46 @@
+.bs--dark-mode {
+  $enable-gradients: true;
+  /* redefine theme colors for dark theme */
+  $primary: #012345;
+  $secondary: #111111;
+  $success: #222222;
+  $dark: #000;
+  $ginText: #cccccc;
+  $ginTextLight: #9e9fa0;
+  $ginAppBackground: #1b1b1d;
+  $ginLayerBackground: #2a2a2d;
+  $black: $white;
+  $white: $black;
+
+  $theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "danger": $danger,
+    "info": $indigo,
+    "dark": $dark,
+    "light": $ginLayerBackground,
+  );
+  /* redefine theme color variables */
+  @each $color, $value in $theme-colors {
+    --#{$variable-prefix}#{$color}: #{$value};
+  }
+  $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+  @each $color, $value in $theme-colors-rgb {
+    --#{$variable-prefix}#{$color}-rgb: #{$value};
+  }
+  $body-color: $ginText;
+  $body-bg: $ginAppBackground;
+  --#{$variable-prefix}body-color: #{$body-color};
+  --#{$variable-prefix}body-bg: #{$body-bg};
+  @import "bootstrap";
+  .navbar-light {
+    &.bg-light .navbar-brand {
+      color: $ginText;
+      font-weight: 700;
+    }
+    .navbar-nav .nav-link {
+      color: $ginTextLight;
+    }
+  }
+}
