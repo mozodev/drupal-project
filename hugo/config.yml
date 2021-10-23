@@ -1,0 +1,18 @@
+# https://gohugo.io/getting-started/configuration/
+
+title: Hugo project
+languageCode: ko-kr
+hasCJKLanguage: true
+disableKinds:
+  - home
+  - section
+  - taxonomy
+  - term
+  - RSS
+  - sitemap
+  - robotsTXT
+  - 404
+outputs:
+  page:
+  - html
+  - json
