@@ -1,0 +1,5 @@
+services:
+  hugo_page.commands:
+    class: \Drupal\hugo_page\Commands\HugoPageCommands
+    tags:
+      - { name: drush.command }

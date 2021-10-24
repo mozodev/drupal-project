@@ -1,0 +1,6 @@
+name: Hugo page
+type: module
+description: Provide drupal page from html, json file built by hugo.
+package: Custom
+core: 8.x
+core_version_requirement: ^8 || ^9
