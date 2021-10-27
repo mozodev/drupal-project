@@ -1,0 +1,19 @@
+{{ define "main" }}
+  {{ `<!-- _default/list.html  -->` | safeHTML }}
+  <main class="layout-list test">
+    <article>
+      <header class="my-5">
+        <h1>{{ .Title }}</h1>
+      </header>
+      {{.Content}}
+    </article>
+    {{ if not .Params.noList }}
+    <ul class="list-unstyled">
+      {{ range .Pages }}
+        {{ .Render "li" }}
+      {{ end }}
+    </ul>
+    {{ end }}
+  </main>
+  {{ `<!-- _default/list.html  -->` | safeHTML }}
+{{ end}}

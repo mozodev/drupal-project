@@ -95,7 +95,7 @@ class HugoPageCommands extends DrushCommands {
    */
   private function createAliases($routeIds) {
     foreach ($routeIds as $routeId) {
-      $path = str_replace('_', '/', $routeId);
+      $path = str_replace('_', '/', str_replace('__index', '', $routeId));
       $alias = PathAlias::create([
         'path' => '/hugo-page/' . $routeId,
         'alias' => '/' . $path,

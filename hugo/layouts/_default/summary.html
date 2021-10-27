@@ -1,0 +1,15 @@
+<article class="post post--summary py-4 border-bottom">
+  <header>
+    <time class="text-muted">{{ .Date.Format "2006년 1월 2일" }}</time>
+    <h2 class="py-1 my-1">
+      <a class="text-decoration-none text-dark" href="{{ .Permalink }}">
+        {{ .Title }}</a>
+    </h2>
+  </header>
+  {{ .Summary }}
+  <footer class="mt-2">
+    <a class="text-decoration-none" href='{{ .Permalink }}'>
+      <nobr>읽어보기 →</nobr>
+    </a>
+  </footer>
+</article>

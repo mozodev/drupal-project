@@ -70,22 +70,28 @@ class HugoPageController extends ControllerBase {
    * Builds the response.
    */
   public function content(String $routeId) {
-    $path = str_replace('_', '/', $routeId);
+    $build['content'] = ['#markup' => ''];
+    $path = str_replace('_', '/', str_replace('__index', '', $routeId));
     if (!empty($path) && !$this->checkRouteId($routeId)) {
       throw new NotFoundHttpException();
     }
     // Read files from built directory.
     $public_dir = PROJECT_ROOT . '/hugo/public';
-    $body = file_get_contents($public_dir . '/' . $path . '/index.html');
+    $html_file = $public_dir . '/' . $path . '/index.html';
+    if (file_exists($html_file)) {
+      $body = file_get_contents($html_file);
+      $build['content'] = [
+        '#theme' => 'hugo_page',
+        '#body' => $body,
+      ];
+    }
     // Parse frontmatter.
-    $params = json_decode(file_get_contents($public_dir . '/' . $path . '/index.json'));
-    $params->data->routeId = $routeId;
-    $params->data->path = '/' . $path;
-    $build['content'] = [
-      '#theme' => 'hugo_page',
-      '#body' => $body,
-      '#params' => $params->data,
-    ];
+    $json_file = $public_dir . '/' . $path . '/index.json';
+    if (file_exists($json_file) && $params = json_decode(file_get_contents($json_file))) {
+      $params->data->routeId = $routeId;
+      $params->data->path = '/' . $path;
+      $build['#params'] = $params->data;
+    }
     return $build;
   }
 

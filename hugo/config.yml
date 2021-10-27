@@ -5,7 +5,6 @@ languageCode: ko-kr
 hasCJKLanguage: true
 disableKinds:
   - home
-  - section
   - taxonomy
   - term
   - RSS
@@ -13,6 +12,9 @@ disableKinds:
   - robotsTXT
   - 404
 outputs:
+  section:
+  - html
+  - json
   page:
   - html
   - json
