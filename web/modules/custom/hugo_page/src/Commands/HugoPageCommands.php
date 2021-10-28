@@ -109,7 +109,7 @@ class HugoPageCommands extends DrushCommands {
   }
 
   /**
-   * Delete state and all aliases of markdown pages.
+   * Delete state and all aliases of html pages built by hugo.
    *
    * @command hugo_page:purge
    * @usage hugo_page:purge

@@ -14,6 +14,11 @@ if (!defined('PROJECT_ROOT')) {
   define('PROJECT_ROOT', DRUPAL_ROOT . '/..');
 }
 
+$helpers = PROJECT_ROOT . '/config/site-dev/helpers.php';
+if (is_readable($helpers)) {
+  require_once $helpers;
+}
+
 /**
  * 시스템 $settings.
  */

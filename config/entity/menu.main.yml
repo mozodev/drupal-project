@@ -1,0 +1,10 @@
+- title: 소개
+  link: /about
+- title: 연락처
+  link: /about/contact
+  parent: about
+- title: 글
+  link: /posts
+- title: 첫번째 글
+  link: /posts/1
+  parent: posts

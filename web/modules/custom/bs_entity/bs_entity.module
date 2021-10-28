@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Provide theming.
+ */
+
+/**
+ * Implements template_preprocess_page().
+ */
+function bs_entity_preprocess_page(&$vars) {
+  $types = \Drupal::entityTypeManager()->getDefinitions();
+  // ksm((string) $types['menu_link_content']->getLabel());
+}

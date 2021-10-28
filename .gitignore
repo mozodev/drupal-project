@@ -45,6 +45,7 @@
 /web/profiles/contrib
 /web/themes/contrib
 /web/README.md
+/drush/Commands/contrib/
 
 # project
 /vendor
