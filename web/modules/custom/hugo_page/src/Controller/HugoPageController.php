@@ -85,12 +85,15 @@ class HugoPageController extends ControllerBase {
         '#body' => $body,
       ];
     }
+    else {
+      throw new NotFoundHttpException();
+    }
     // Parse frontmatter.
     $json_file = $public_dir . '/' . $path . '/index.json';
     if (file_exists($json_file) && $params = json_decode(file_get_contents($json_file))) {
       $params->data->routeId = $routeId;
       $params->data->path = '/' . $path;
-      $build['#params'] = $params->data;
+      $build['content']['#params'] = (array) $params->data;
     }
     return $build;
   }

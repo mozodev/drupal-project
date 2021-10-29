@@ -1,6 +1,6 @@
 services:
   bs_entity.commands:
     class: Drupal\bs_entity\Commands\BsEntityCommands
-    arguments: ['@entity_type.manager']
+    arguments: ['@entity_type.manager', '@path.validator']
     tags:
       -  { name: drush.command }

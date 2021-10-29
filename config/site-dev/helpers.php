@@ -10,9 +10,9 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 /**
  * Debug function.
  */
-function aihub_debug($module, $object) {
+function bs_debug($module, $object) {
   $prefix = '!!!!' . Drupal::request()->getClientIp() . ' ===> ';
-  \Drupal::logger($module)->info($prefix . print_r($object, TRUE));
+  \Drupal::logger($module)->debug($prefix . print_r($object, TRUE));
 }
 
 /**
@@ -23,7 +23,7 @@ function entity_storage($entity_type) {
     $type = \Drupal::entityTypeManager()->getDefinition($entity_type);
   }
   catch (PluginNotFoundException $e) {
-    aihub_debug('entityStorage', $e->getMessage());
+    bs_debug('entityStorage', $e->getMessage());
   }
   return \Drupal::entityTypeManager()->getStorage($entity_type);
 }
@@ -52,4 +52,19 @@ function starts_with_in_array(string $needle, array $haystack) {
     return TRUE;
   }
   return FALSE;
+}
+
+/**
+ * Get classname without namespace.
+ */
+function get_class_name($object) {
+  $path = explode('\\', get_class($object));
+  return array_pop($path);
+}
+
+/**
+ * Camelize.
+ */
+function camelize($input, $separator = '_') {
+  return str_replace($separator, '', ucwords($input, $separator));
 }

@@ -5,10 +5,12 @@
  * Provide theming.
  */
 
+use Drupal\Core\Url;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\Component\Utility\Html;
+
 /**
  * Implements template_preprocess_page().
  */
 function bs_entity_preprocess_page(&$vars) {
-  $types = \Drupal::entityTypeManager()->getDefinitions();
-  // ksm((string) $types['menu_link_content']->getLabel());
 }
