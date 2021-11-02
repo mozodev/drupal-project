@@ -83,7 +83,7 @@ class BsEntityCommands extends DrushCommands {
       return FALSE;
     }
 
-    $menu_link_storage = entity_storage('menu_link_content');
+    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
     foreach ($links as $key => $link) {
       $item = $this->buildMenuItem($link);
       try {
@@ -115,8 +115,8 @@ class BsEntityCommands extends DrushCommands {
    * @aliases mmp
    */
   public function mainMenuLinkPurge() {
-    $menu_items = entity_list('menu_link_content');
-    $menu_link_storage = entity_storage('menu_link_content');
+    $menu_link_storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+    $menu_items = $menu_link_storage->loadByProperties();
     try {
       $menu_link_storage->delete($menu_items);
       $this->logger()->success(dt('Main menu link items purged: @mlids', [
