@@ -1,6 +1,6 @@
 {
     "name": "mozodev/drupal-project",
-    "description": "Another project template for Drupal 9 projects with a relocated document root",
+    "description": "Another project template for Drupal 9+ projects with a relocated document root",
     "type": "project",
     "license": "MIT",
     "repositories": [
@@ -19,13 +19,13 @@
         "ext-pdo_mysql": "*",
         "ext-xml": "*",
         "ext-zip": "*",
-        "composer/installers": "^1.9",
-        "drupal/components": "^2.4",
-        "drupal/core-composer-scaffold": "^9.2",
-        "drupal/core-recommended": "^9.2",
-        "drupal/gin": "^3.0@alpha",
-        "drupal/gin_login": "^1.0",
-        "drupal/gin_toolbar": "^1.0@beta",
+        "composer/installers": "^2",
+        "drupal/components": "^2",
+        "drupal/core-composer-scaffold": "^9",
+        "drupal/core-recommended": "^9",
+        "drupal/gin": "^3",
+        "drupal/gin_login": "^1",
+        "drupal/gin_toolbar": "^1",
         "drupal/radix": "^5",
         "drush/drush": "^10"
     },
@@ -78,7 +78,7 @@
     },
     "require-dev": {
         "drupal/coder": "^8.3",
-        "drupal/devel": "^4.1",
-        "kint-php/kint": "^3.3"
+        "drupal/devel": "^4",
+        "kint-php/kint": "^4"
     }
 }

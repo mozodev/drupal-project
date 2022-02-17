@@ -49,7 +49,6 @@ if (DRUPAL_ENV == 'dev') {
   $config['system.logging']['error_level'] = 'verbose';
   $settings['skip_permissions_hardening'] = TRUE;
   $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
-  if (class_exists('Kint')) \Kint::$max_depth = 4;
   /**
    * Cache 관련 설정.
    */
