@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VARIANT: "7.4"
+        VARIANT: "8.1"
         INSTALL_NODE: "true"
         NODE_VERSION: "lts/*"
         USER_UID: 1000
@@ -16,16 +16,31 @@ services:
     command: sleep infinity
     network_mode: service:db
     user: vscode
+
+  # db:
+  #   image: mariadb:10.5
+  #   restart: unless-stopped
+  #   volumes:
+  #     - mariadb-data:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: mariadb
+  #     MYSQL_DATABASE: mariadb
+  #     MYSQL_USER: mariadb
+  #     MYSQL_PASSWORD: mariadb
+
   db:
-    image: mariadb:10.5
+    image: postgres:latest
     restart: unless-stopped
     volumes:
-      - mariadb-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      MYSQL_ROOT_PASSWORD: mariadb
-      MYSQL_DATABASE: mariadb
-      MYSQL_USER: mariadb
-      MYSQL_PASSWORD: mariadb
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
 
 volumes:
-  mariadb-data:
+  # mariadb-data:
+  postgres-data:
+
+# Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+# (Adding the "ports" property to this file will not forward from a Codespace.)

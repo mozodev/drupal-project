@@ -15,7 +15,7 @@
   ],
   "extensions": {
     "recommendations": [
-      "GitHub.vscode-pull-request-github",
+      "ckolkman.vscode-postgres",
       "mrmlnc.vscode-duplicate",
       "editorconfig.editorconfig",
       "ikappas.phpcs",
@@ -29,7 +29,8 @@
       "tsega.drupal-8-javascript-snippets",
       "tsega.drupal-8-twig-snippets",
       "humao.rest-client",
-      "wmaurer.change-case"
+      "wmaurer.change-case",
+      "matt-meyers.vscode-dbml"
     ]
   },
   "settings": {

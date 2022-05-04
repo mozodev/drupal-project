@@ -1,39 +1,32 @@
 // Update the VARIANT arg in docker-compose.yml to pick a PHP version: 7, 7.3, 7.4
 {
-  "name": "PHP & MariaDB",
+  "name": "PHP & PostgreSQL",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
-  // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "sqltools.connections": [
-      {
-        "name": "Container database",
-        "driver": "MariaDB",
-        "server": "localhost",
-        "previewLimit": 50,
-        "port": 3306,
-        "database": "mariadb",
-        "username": "root",
-        "password": "mariadb"
-      }
-    ]
-  },
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
-    "felixfbecker.php-debug",
-    "felixfbecker.php-intellisense",
-    "mrmlnc.vscode-apache",
-    "mtxr.sqltools",
-    "mtxr.sqltools-driver-mysql"
+    "ckolkman.vscode-postgres",
+    "mrmlnc.vscode-duplicate",
+    "editorconfig.editorconfig",
+    "ikappas.phpcs",
+    "neilbrayfield.php-docblocker",
+    "dmitrydorofeev.empty-indent",
+    "bmewburn.vscode-intelephense-client",
+    "marcostazi.vs-code-drupal",
+    "bbeversdorf.drupal-check",
+    "mblode.twig-language-2",
+    "dssiqueira.drupal-8-snippets",
+    "tsega.drupal-8-javascript-snippets",
+    "tsega.drupal-8-twig-snippets",
+    "humao.rest-client",
+    "wmaurer.change-case"
   ],
-  // For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
   "forwardPorts": [
-    8080,
-    3306
+    8888, 5432
   ],
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "sudo chmod a+x /root && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
+  "postCreateCommand": "sudo chmod a+x /root && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
   // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-  // "remoteUser": "vscode"
+  "remoteUser": "vscode"
 }
