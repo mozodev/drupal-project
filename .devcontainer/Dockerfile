@@ -31,7 +31,7 @@ RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/late
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-  && apt-get -y install --no-install-recommends nano sqlite3 zip unzip
+  && apt-get -y install --no-install-recommends nano sqlite3 zip unzip \
   && curl -LO https://l.mozo.kr/up/gh-fetch && chmod +x gh-fetch.sh && mv gh-fetch.sh /usr/local/bin/gh-fetch
 
 # [Optional] Uncomment this line to install global node packages.
