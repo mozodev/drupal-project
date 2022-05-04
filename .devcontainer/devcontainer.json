@@ -26,7 +26,7 @@
     8888, 5432
   ],
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "sudo chmod a+x /root && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
+  "postCreateCommand": "sudo chmod a+x /root && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html && PGPASSWORD=postgres psql -h db -U postgres -d postgres -c \"CREATE EXTENSION pg_trgm;\" && cd /usr/local/etc/php/ && sudo cp php.ini-development php.ini && echo 'memory_limit=-1' | sudo tee -a php.ini && sudo mv conf.d/xdebug.ini conf.d/xdebug.ini--",
   // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode"
 }

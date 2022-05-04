@@ -8,6 +8,7 @@ FROM [drupal/recommended-project](https://github.com/drupal/recommended-project)
 $ php -v && sqlite3 -version && composer -V
 # $ mysql -V | psql -V
 
+$ composer install
 # Load env vars and check install options.
 $ . scripts/env.sh && env | grep DRUSH
 # Install site.
