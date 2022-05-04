@@ -1,7 +1,0 @@
-threshold:
-  requirements_warning: 172800
-  requirements_error: 1209600
-logging: 1
-langcode: ko
-_core:
-  default_config_hash: 1DjH28ewAR8Tt14EfOaQftCrDgqCBkUtL0xrqk3l7EQ

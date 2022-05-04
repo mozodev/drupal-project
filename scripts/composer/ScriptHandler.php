@@ -63,7 +63,7 @@ class ScriptHandler {
     $composerRoot = $drupalFinder->getComposerRoot();
     $projectCode = basename($composerRoot);
 
-    $source = $composerRoot . '/config/site-dev/code-workspace';
+    $source = $composerRoot . '/scripts/project/code-workspace';
     $destination = $composerRoot . '/' . $projectCode . '.code-workspace';
     if (!$fs->exists($destination)) {
       $fs->copy($source, $destination);
@@ -85,7 +85,7 @@ class ScriptHandler {
     $composerRoot = $drupalFinder->getComposerRoot();
 
     $settingsFile = $drupalRoot . '/sites/default/settings.php';
-    $settingsLocalFile = $composerRoot . '/config/site-dev/settings.local.php';
+    $settingsLocalFile = $composerRoot . '/scripts/project/settings.local.php';
     $settingsLocalFileTarget = $drupalRoot . '/sites/default/settings.local.php';
     $includeSettingsLocal = PHP_EOL . 'include "settings.local.php";' . PHP_EOL;
 
@@ -96,6 +96,7 @@ class ScriptHandler {
     symlink($settingsLocalFile, $settingsLocalFileTarget);
     $fs->chmod($drupalRoot . '/sites/default', 0755);
     $fs->chmod($settingsFile, 0444);
+    $fs->chmod($settingsLocalFile, 0444);
   }
 
 }

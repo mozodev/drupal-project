@@ -1,13 +1,25 @@
-# https://raw.githubusercontent.com/drush-ops/drush/10.x/examples/example.site.yml
-
-local:
+# https://raw.githubusercontent.com/drush-ops/drush/11.x/examples/example.site.yml
+#
+# A minimalist Drush site alias file.
+# See https://www.drush.org/latest/site-aliases/ for lots more documentation.
+#
+# File: self.site.yml
+dev:
   uri: http://localhost:8888
   root: /home/ubuntu/drupal-project
   paths:
-    - files: sites/default/files
+  - files: sites/default/files
   env-vars:
     DRUPAL_ENV: dev
-
+stage:
+  host: ${env.STG_HOST}
+  user: ${env.STG_USER}
+  root: ${env.STG_ROOT}
+  uri: ${env.STG_URI}
+  ssh:
+    options: '-i ${env.STG_PEM_KEY}'
+  paths:
+  - files: sites/default/files
 prod:
   host: ${env.PROD_HOST}
   user: ${env.PROD_USER}
@@ -16,4 +28,4 @@ prod:
   ssh:
     options: '-i ${env.PROD_PEM_KEY}'
   paths:
-    - files: sites/default/files
+  - files: sites/default/files

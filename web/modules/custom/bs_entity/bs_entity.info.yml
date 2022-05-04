@@ -1,6 +1,0 @@
-name: Base entity
-type: module
-description: Provide drush commands related to entity.
-package: Base
-core: 8.x
-core_version_requirement: ^8 || ^9

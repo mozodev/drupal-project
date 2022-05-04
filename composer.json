@@ -10,24 +10,14 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
-        "ext-curl": "*",
-        "ext-gd": "*",
-        "ext-json": "*",
-        "ext-mbstring": "*",
-        "ext-pdo": "*",
-        "ext-pdo_mysql": "*",
-        "ext-xml": "*",
-        "ext-zip": "*",
+        "php": ">=8.1",
         "composer/installers": "^2",
-        "drupal/components": "^2",
-        "drupal/core-composer-scaffold": "^9",
-        "drupal/core-recommended": "^9",
+        "drupal/core-composer-scaffold": "^10.0.0-alpha3",
+        "drupal/core-recommended": "^10.0.0-alpha3",
         "drupal/gin": "^3",
         "drupal/gin_login": "^1",
         "drupal/gin_toolbar": "^1",
-        "drupal/radix": "^5",
-        "drush/drush": "^10"
+        "drush/drush": "^11"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -39,26 +29,34 @@
     },
     "scripts": {
         "workspace": ["DrupalProject\\composer\\ScriptHandler::addWorkspace"],
-        "env": "php -r \"copy('config/site-dev/env.example', './.env');\"",
+        "env": "php -r \"copy('scripts/project/env.example', './.env');\"; echo 'export $(grep -v '^#' .env | xargs) && env | grep DRUSH_'",
         "add-settings-local": ["DrupalProject\\composer\\ScriptHandler::addSettingsLocal"],
         "site-install": [
-            "drush -y si base install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
+            "@env",
+            "echo '$settings[\"config_sync_directory\"] = \"../config/sync\";' >> web/sites/default/default.settings.php",
+            "drush -y si standard install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
             "@add-settings-local"
         ],
         "start": [
+            "echo 'export $(grep -v '^#' .env | xargs)'",
             "Composer\\Config::disableProcessTimeout",
             "drush rs 0.0.0.0:8888"
         ],
         "site-uninstall": [
             "drush sql:drop -y",
             "chmod +w web/sites/default",
-            "rm -rf web/sites/default/files/config_* web/sites/default/settings*"
+            "rm -rf web/sites/default/files web/sites/default/settings*"
         ]
     },
     "config": {
         "discard-changes": true,
         "sort-packages": true,
-        "process-timeout": 0
+        "process-timeout": 0,
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "drupal-scaffold": {
@@ -78,7 +76,6 @@
     },
     "require-dev": {
         "drupal/coder": "^8.3",
-        "drupal/devel": "^4",
         "kint-php/kint": "^4"
     }
 }

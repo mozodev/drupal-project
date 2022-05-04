@@ -45,11 +45,21 @@
 /web/profiles/contrib
 /web/themes/contrib
 /web/README.md
-/drush/Commands/contrib/
+
+# Ignore vendor dependencies and scripts
+/vendor
+/composer.phar
+/composer
+/robo.phar
+/robo
+/drush.phar
+/drush
+/drupal.phar
+/drupal
 
 # project
-/vendor
-/drive
-/*.code-workspace
-.env
 /.gitattributes
+/.env
+/sqlite
+/drush/Commands/contrib/
+/*.code-workspace

@@ -5,15 +5,14 @@ FROM [drupal/recommended-project](https://github.com/drupal/recommended-project)
 ```bash
 # Just use this as template to create new repo and clone it.
 # Check dependencies.
-$ php -v && mysql -V && sqlite3 -version && composer -V
+$ php -v && sqlite3 -version && composer -V
+# $ mysql -V | psql -V
 
-# Load env vars.
-$ . scripts/env.sh
-# Show install options.
-$ env | grep DRUSH
-# First, drush site:install and add settings.local.php.
+# Load env vars and check install options.
+$ . scripts/env.sh && env | grep DRUSH
+# Install site.
 $ composer site-install
-# Start drush runserver.
+# Run web server.
 $ composer start
 # Uninstall site.
 $ composer site-uninstall
