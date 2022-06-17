@@ -12,8 +12,8 @@
     "require": {
         "php": ">=8.1",
         "composer/installers": "^2",
-        "drupal/core-composer-scaffold": "^9.3",
-        "drupal/core-recommended": "^9.3",
+        "drupal/core-composer-scaffold": "^9.4",
+        "drupal/core-recommended": "^9.4",
         "drupal/gin": "^3",
         "drupal/gin_login": "^1",
         "drupal/gin_toolbar": "^1",
@@ -46,7 +46,17 @@
             "drush sql:drop -y",
             "chmod +w web/sites/default",
             "rm -rf web/sites/default/files web/sites/default/settings*"
-        ]
+        ],
+        "pull:files": "drush -y -v rsync @prod:%files @local:%files",
+        "pull:db": "drush -y -v sql:sync @prod @local",
+        "pull": [
+            "@pull:files",
+            "@pull:db"
+        ],
+        "status:stage": "drush -v @stage ssh 'cd ../ && drush st && drush cst && git status && composer outdated --direct && du -sch'",
+        "deploy:stage": "drush -v @stage ssh 'cd ../ && git pull && composer update -o && drush deploy && git checkout -- ./'",
+        "status:prod": "drush -v @prod ssh 'cd ../ && drush st && drush cst && git status && composer outdated --direct && du -sch'",
+        "deploy:prod": "drush -v @prod ssh 'cd ../ && git pull && composer update -o && drush deploy && git checkout -- ./'"
     },
     "config": {
         "discard-changes": true,
