@@ -6,11 +6,12 @@
 # File: self.site.yml
 dev:
   uri: http://localhost:8888
-  root: /home/ubuntu/drupal-project
+  root: /home/ubuntu/projects/drupal-project
   paths:
   - files: sites/default/files
   env-vars:
     DRUPAL_ENV: dev
+
 stage:
   host: ${env.STG_HOST}
   user: ${env.STG_USER}
@@ -20,6 +21,7 @@ stage:
     options: '-i ${env.STG_PEM_KEY}'
   paths:
   - files: sites/default/files
+
 prod:
   host: ${env.PROD_HOST}
   user: ${env.PROD_USER}
