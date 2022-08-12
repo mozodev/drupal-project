@@ -29,16 +29,16 @@
     },
     "scripts": {
         "workspace": ["DrupalProject\\composer\\ScriptHandler::addWorkspace"],
-        "env": "php -r \"copy('scripts/project/env.example', './.env');\"; echo 'export $(grep -v '^#' .env | xargs) && env | grep DRUSH_'",
+        "set-env": ["cp config/site-dev/env.example ./.env"],
+        "set-env:fpm": ["scripts/project/add-env-apache2.sh"],
         "add-settings-local": ["DrupalProject\\composer\\ScriptHandler::addSettingsLocal"],
         "site-install": [
-            "@env",
-            "echo '$settings[\"config_sync_directory\"] = \"../config/sync\";' >> web/sites/default/default.settings.php",
             "drush -y si standard install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
+            "mkdir -p web/sites/default/files/translations",
+            "chmod -R 777 web/sites/default/files",
             "@add-settings-local"
         ],
         "start": [
-            "echo 'export $(grep -v '^#' .env | xargs)'",
             "Composer\\Config::disableProcessTimeout",
             "drush rs 0.0.0.0:8888"
         ],
@@ -47,16 +47,13 @@
             "chmod +w web/sites/default",
             "rm -rf web/sites/default/files web/sites/default/settings*"
         ],
-        "pull:files": "drush -y -v rsync @prod:%files @local:%files",
+        "pull:public": "drush -y -v rsync @prod:%files @local:%files",
+        "pull:private": "drush -y -v rsync @prod:%private @local:%private",
+        "pull:files": ["@pull:public", "@pull:private"],
         "pull:db": "drush -y -v sql:sync @prod @local",
-        "pull": [
-            "@pull:files",
-            "@pull:db"
-        ],
-        "status:stage": "drush -v @stage ssh 'cd ../ && drush st && drush cst && git status && composer outdated --direct && du -sch'",
-        "deploy:stage": "drush -v @stage ssh 'cd ../ && git pull && composer update -o && drush deploy && git checkout -- ./'",
-        "status:prod": "drush -v @prod ssh 'cd ../ && drush st && drush cst && git status && composer outdated --direct && du -sch'",
-        "deploy:prod": "drush -v @prod ssh 'cd ../ && git pull && composer update -o && drush deploy && git checkout -- ./'"
+        "pull": ["@pull:files", "@pull:db"],
+        "check:prod": "drush -v @prod ssh 'cd ../ && drush st && drush cst && git status && composer outdated --direct && du -sch'",
+        "deploy": "drush -v @prod ssh 'cd ../ && git pull && composer update -o && drush deploy && git checkout -- ./'"
     },
     "config": {
         "discard-changes": true,
@@ -86,6 +83,7 @@
     },
     "require-dev": {
         "drupal/coder": "^8.3",
+        "drupal/devel": "^4.1",
         "kint-php/kint": "^4"
     }
 }

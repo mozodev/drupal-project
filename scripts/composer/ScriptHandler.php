@@ -63,7 +63,7 @@ class ScriptHandler {
     $composerRoot = $drupalFinder->getComposerRoot();
     $projectCode = basename($composerRoot);
 
-    $source = $composerRoot . '/scripts/project/code-workspace';
+    $source = $composerRoot . '/config/site-dev/code-workspace';
     $destination = $composerRoot . '/' . $projectCode . '.code-workspace';
     if (!$fs->exists($destination)) {
       $fs->copy($source, $destination);

@@ -1,4 +1,4 @@
-# https://raw.githubusercontent.com/drush-ops/drush/10.x/examples/example.drush.yml
+# https://raw.githubusercontent.com/drush-ops/drush/11.x/examples/example.drush.yml
 
 command:
   sql:
@@ -13,6 +13,11 @@ command:
     rsync:
       options:
         verbose: true
+        exclude-paths: 'css/:js/:styles/:php/:xmlsitemap'
+  php:
+    script:
+      options:
+        script-path: '../scripts/drush'
 
 sql:
   tables:

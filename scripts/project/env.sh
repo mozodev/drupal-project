@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
 # https://stackoverflow.com/a/16619261
-# usage: . scripts/env.sh
+
+set -ex
 
 if [ -f .env ]; then
     export $(grep -v '^#' .env | xargs)

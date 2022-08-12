@@ -1,12 +1,14 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * @file
  * Drupal site-specific custom configuration file.
  */
 
-const PROJECT_ENV = ['dev', 'stage', 'prod'];
-$settings['project_root'] = dirname(DRUPAL_ROOT);
+/**
+ * 드루팔 환경
+ */
 if (!defined('DRUPAL_ENV')) {
   define('DRUPAL_ENV', getenv('DRUPAL_ENV', 'dev'));
 }
@@ -14,12 +16,16 @@ if (!defined('DRUPAL_ENV')) {
 /**
  * 시스템 $settings.
  */
-$settings_keys = ['trusted_host_patterns'];
+$settings_keys = ['trusted_host_patterns', 'hash_salt', 'config_sync_directory'];
 foreach ($settings_keys as $key) {
-  if (!empty(getenv('DRUPAL_' . strtoupper($key)))) {
-    $settings[$key] = ($key == 'trusted_host_patterns') ?
-      explode('|', $settings['trusted_host_patterns']) : getenv('DRUPAL_' . strtoupper($key));
+  $value = getenv('DRUPAL_' . strtoupper($key));
+  if (empty($value) || !empty($settings[$key])) {
+    continue;
   }
+  $settings[$key] = match ($key) {
+    'trusted_host_patterns' => explode('|', $value),
+    default => $value,
+  };
 }
 
 /**
@@ -36,10 +42,12 @@ foreach ($databases_keys as $key) {
  * 개발 설정.
  */
 if (DRUPAL_ENV == 'dev') {
-  $settings['container_yamls'][] = '../scripts/project/theme-dev.services.yml';
   $config['system.logging']['error_level'] = 'verbose';
+  $settings['container_yamls'][] = '../config/site-dev/theme-dev.services.yml';
   $settings['skip_permissions_hardening'] = TRUE;
-  $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
+  $settings['config_exclude_modules'] = [
+    'devel', 'devel_generagte', 'stage_file_proxy'
+  ];
   /**
    * Cache 관련 설정.
    */

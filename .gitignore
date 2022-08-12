@@ -59,7 +59,7 @@
 
 # project
 /.gitattributes
-/.env
+/.env*
 /sqlite
 /drush/Commands/contrib/
 /*.code-workspace

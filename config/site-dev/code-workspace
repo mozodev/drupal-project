@@ -15,7 +15,6 @@
   ],
   "extensions": {
     "recommendations": [
-      "ckolkman.vscode-postgres",
       "mrmlnc.vscode-duplicate",
       "editorconfig.editorconfig",
       "ikappas.phpcs",
