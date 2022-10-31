@@ -85,7 +85,7 @@ class ScriptHandler {
     $composerRoot = $drupalFinder->getComposerRoot();
 
     $settingsFile = $drupalRoot . '/sites/default/settings.php';
-    $settingsLocalFile = $composerRoot . '/scripts/project/settings.local.php';
+    $settingsLocalFile = $composerRoot . '/config/site-dev/settings.local.php';
     $settingsLocalFileTarget = $drupalRoot . '/sites/default/settings.local.php';
     $includeSettingsLocal = PHP_EOL . 'include "settings.local.php";' . PHP_EOL;
 
