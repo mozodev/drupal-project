@@ -77,8 +77,8 @@
     "emptyIndent.highlightIndent": false,
     "emptyIndent.highlightColor": "rgba(246,36,89,0.6)",
     "phpcs.enable": true,
-    "phpcs.executablePath": "{workspaceFolder}/vendor/bin/phpcs",
-    "phpcs.standard": "{workspaceFolder}/vendor/drupal/coder/coder_sniffer/Drupal",
+    "phpcs.executablePath": "${fileWorkspaceFolder}/vendor/bin/phpcs",
+    "phpcs.standard": "${fileWorkspaceFolder}/vendor/drupal/coder/coder_sniffer/Drupal",
     "php.validate.enable": true,
     "php.validate.executablePath": "/usr/bin/php",
     "php.validate.run": "onType",
@@ -89,8 +89,6 @@
     "intelephense.diagnostics.undefinedMethods": false,
     "php-docblocker.gap": true,
     "php-docblocker.useShortNames": true,
-    "composer.enabled": true,
-    "composer.executablePath": "/usr/local/bin/composer",
     "remote.autoForwardPorts": false,
     "remote.SSH.defaultForwardedPorts": [
       {

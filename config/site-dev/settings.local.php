@@ -9,9 +9,7 @@
 /**
  * 드루팔 환경
  */
-if (!defined('DRUPAL_ENV')) {
-  define('DRUPAL_ENV', getenv('DRUPAL_ENV', 'dev'));
-}
+$DRUPAL_ENV = getenv('DRUPAL_ENV');
 
 /**
  * 시스템 $settings.
@@ -33,7 +31,8 @@ foreach ($settings_keys as $key) {
  */
 $databases_keys = ['database', 'host', 'port', 'driver', 'username', 'password', 'prefix', 'collation'];
 foreach ($databases_keys as $key) {
-  if (!empty(getenv('DRUPAL_DB_' . strtoupper($key), 0))) {
+  $value = getenv('DRUPAL_DB_' . strtoupper($key));
+  if (!empty($value)) {
     $databases['default']['default'][$key] = $value;
   }
 }
@@ -41,7 +40,7 @@ foreach ($databases_keys as $key) {
 /**
  * 개발 설정.
  */
-if (DRUPAL_ENV == 'dev') {
+if ($DRUPAL_ENV == 'dev') {
   $config['system.logging']['error_level'] = 'verbose';
   $settings['container_yamls'][] = '../config/site-dev/theme-dev.services.yml';
   $settings['skip_permissions_hardening'] = TRUE;
