@@ -10,7 +10,7 @@
         },
         {
             "type": "path",
-            "url": "web/profiles/custom/standard_gin"
+            "url": "web/profiles/*/*"
         }
     ],
     "require": {
