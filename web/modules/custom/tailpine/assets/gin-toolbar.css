@@ -1,0 +1,19 @@
+/**
+ * Compatibility with Gin Toolbar's secondary toolbar.
+ *
+ * gin sprite: /themes/contrib/gin/dist/media/sprite.svg
+ */
+.toolbar .toolbar-bar .toolbar-menu-administration .toolbar-icon-slug::before {
+  background-image: url('');
+  mask-image: url('');
+}
+
+#block-gin-page-title .shortcut-action__icon {
+  top: 0px;
+}
+
+@media (min-width: 64em) {
+  #block-gin-page-title .shortcut-action__icon {
+    top: -7px;
+  }
+}

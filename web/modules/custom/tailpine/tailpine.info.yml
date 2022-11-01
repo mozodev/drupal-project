@@ -1,0 +1,5 @@
+name: tailwindcss + alpinejs = tailpine
+type: module
+description: Provide base libraries and customization.
+package: Custom
+core_version_requirement: ^9 || ^10

@@ -1,0 +1,10 @@
+<div id="light-mode-toggler" x-data>
+  <button @click="$store.darkMode.toggle()">
+    <span x-show="$store.darkMode.on" class="text-yellow-300">
+      <i data-feather="sun"></i>
+    </span>
+    <span x-show="! $store.darkMode.on" class="dark:text-neutral-700">
+      <i data-feather="moon"></i>
+    </span>
+  </button>
+</div>

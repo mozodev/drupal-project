@@ -1,0 +1,9 @@
+global:
+  css:
+    component:
+      assets/gin-toolbar.css: {}
+  js:
+    assets/tailpine.js: { preprocess: false, attributes: { type: "module", crossorigin: "" } }
+  dependencies:
+    - core/once
+    - core/drupalSettings

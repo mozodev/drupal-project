@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for tailpine module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Asset\AttachedAssetsInterface;
+
+/**
+ * Implements hook_form_alters().
+ */
+function tailpine_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'taxonomy_overview_vocabularies') {
+    foreach ($form['vocabularies'] as $key => $value) {
+      if (!str_contains($key, '#') && !empty($value['label'])) {
+        $label = '<span class="bg-gray-500 rounded-lg p-1 ml-3 text-white">' . $key . '</span>';
+        $form['vocabularies'][$key]['description']['data']['#markup'] .= $label;
+      }
+    }
+  }
+}
+
+/**
+ * Return current module path.
+ */
+function tailpine_path($type, $name, $absolute = FALSE) {
+  $path = \Drupal::service('extension.list.' . $type)->getPath($name);
+  if ($absolute) {
+    $path = \Drupal::service('file_system')->realpath($path);
+  }
+  return $path;
+}
+
+/**
+ * Implements template_preprocess_toolbar().
+ */
+function tailpine_preprocess_toolbar(&$variables) {
+  $variables['tabs']['mode'] = [
+    'link' => [
+      '#type' => 'inline_template',
+      '#template' => tailpine_inline_template('light-mode-toggler'),
+    ],
+    'attributes' => new Attribute([
+      'class' => ['toolbar-icon-asterisk', 'mx-3'],
+      'id' => 'toolbar-tab-light-mode',
+    ]),
+  ];
+}
+
+/**
+ * Get inline template contents.
+ */
+function tailpine_inline_template($filename) {
+  $inline_template = '';
+  $module_abs_path = tailpine_path('module', 'tailpine', TRUE);
+  $template_abs_path = $module_abs_path . '/templates/' . $filename . '.html.twig';
+  if (file_exists($template_abs_path)) {
+    $inline_template = file_get_contents($template_abs_path);
+  }
+  return $inline_template;
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function tailpine_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'tailpine/global';
+}
+
+/**
+ * Implements template_preprocess_html().
+ */
+function tailpine_preprocess_html(&$variables) {
+  /** @var \Drupal\Core\Routing\AdminContext $admin_context */
+  $admin_context = \Drupal::service('router.admin_context');
+  /** @var \Drupal\Core\Routing\RouteMatchInterface $route_name */
+  $route = \Drupal::routeMatch();
+  if (!$admin_context->isAdminRoute() && $route->getRouteName()
+    && !str_starts_with($route->getRouteName(), 'system.')
+  ) {
+    $variables['html_attributes']->setAttribute('hidden', '');
+  }
+  $variables['page_bottom']['twind_config'] = [
+    '#markup' => '<script type="twind-config">{"mode":"silent","important":"true"}</script>',
+    '#allowed_tags' => ['script'],
+  ];
+}
+
+/**
+ * Implements hook_js_alter().
+ * from https://www.drupal.org/project/gutenberg/issues/3219569#comment-14146442
+ */
+function tailpine_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  // For an unknown reason the scripts that depend on jquery.ui.widget are
+  // loaded before its dependency. Therefore we modify the weight here to
+  // ensure the widget-min.js is invoked earlier.
+  if (isset($javascript['core/assets/vendor/jquery.ui/ui/widget-min.js'])) {
+    $javascript['core/assets/vendor/jquery.ui/ui/widget-min.js']['weight'] = -11.9;
+  }
+  if (isset($javascript['core/assets/vendor/jquery.ui/ui/plugin-min.js'])) {
+    $javascript['core/assets/vendor/jquery.ui/ui/plugin-min.js']['weight'] = -11.6;
+  }
+}
