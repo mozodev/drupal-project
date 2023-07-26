@@ -17,9 +17,9 @@
         "php": ">=8.1",
         "composer/installers": "^2",
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "^9.4",
-        "drupal/core-recommended": "^9.4",
-        "drush/drush": "^11",
+        "drupal/core-composer-scaffold": "^10.1",
+        "drupal/core-recommended": "^10.1",
+        "drush/drush": "^12",
         "mozodev/standard_gin": "@dev"
     },
     "conflict": {
@@ -86,7 +86,7 @@
     },
     "require-dev": {
         "drupal/coder": "^8.3",
-        "drupal/devel": "^4.1",
-        "kint-php/kint": "^4"
+        "drupal/devel": "^5",
+        "kint-php/kint": "^5"
     }
 }

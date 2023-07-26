@@ -2,13 +2,13 @@ name: Standard Gin
 type: profile
 description: 'Install with commonly used features pre-configured.'
 version: VERSION
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10
 install:
   - node
   - history
   - block
   - breakpoint
-  - ckeditor
+  - ckeditor5
   - config
   - comment
   - contextual
@@ -32,10 +32,8 @@ install:
   - toolbar
   - field_ui
   - file
-  - rdf
   - views
   - views_ui
-  - tour
   - automated_cron
   - gin_login
   - gin_toolbar
