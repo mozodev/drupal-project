@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:lts
+    container_name: mariadb
+    restart: unless-stopped
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mariadb
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: mariadb
+    networks:
+      - app_dev
+  app:
+    image: ghcr.io/mozodev/php:dev
+    container_name: ${PROJECT_CODE:-drupal-project}
+    depends_on: 
+      - db
+    volumes:
+      - .:/workspace:delegated
+    env_file: ${ENV_FILE:-config/site-dev/env.example}
+    networks:
+      - app_dev
+
+volumes:
+  mariadb-data:
+
+networks:
+  app_dev:
