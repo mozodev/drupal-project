@@ -22,7 +22,7 @@ $ composer set-env
 # Load env variable to shell
 # https://direnv.net/
 $ sudo apt install -y direnv
-$ echo 'dotenv' > ./envrc && direnv allow
+$ echo 'dotenv' > ./.envrc && direnv allow
 
 # Run web server.
 $ composer start

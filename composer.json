@@ -40,6 +40,12 @@
             "chmod -R 777 web/sites/default/files",
             "@add-settings-local"
         ],
+        "site-install:mariadb": [
+            "drush -y --db-url=mysql://db:db@db/db si standard_gin install_configure_form.date_default_country=KR install_configure_form.date_default_timezone=Asia/Seoul install_configure_form.enable_update_status_emails=NULL",
+            "mkdir -p web/sites/default/files/translations",
+            "chmod -R 777 web/sites/default/files",
+            "@add-settings-local"
+        ],
         "start": [
             "Composer\\Config::disableProcessTimeout",
             "drush rs 0.0.0.0:8888"
