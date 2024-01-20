@@ -1,13 +1,6 @@
 {
-  "name": "drupal-project",
-  "service": "app",
-  "dockerComposeFile": ["compose.yml"],
-  "workspaceFolder": "/workspace",
-  "shutdownAction": "stopCompose",
-  "customizations": {
-    "vscode": {
-      "extensions": ["streetsidesoftware.code-spell-checker"]
-    }
-  },
-  "forwardPorts": [8888]
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/ddev/ddev/install-ddev:latest": {}
+  }
 }
